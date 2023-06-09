@@ -12,7 +12,9 @@ services:
     ports:
       - '27017-27019:27017-27019'
   api:
-    image: NodeJS
+    build:
+      context: ./decision-engine/api
+      dockerfile: Dockerfile
     restart: always
     ports:
       - 8081:8081
@@ -23,8 +25,9 @@ services:
     depends_on:
       - database
   ui:
-    build: .
-    image: zeta-admin
+    build:
+      context: ./decision-engine/ui
+      dockerfile: Dockerfile
     depends_on:
       - database
     ports:
