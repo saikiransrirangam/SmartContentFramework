@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 import { CreateSurveyDto as CreateDto } from './dto/create-survey.dto';
@@ -56,7 +64,27 @@ export class SurveysController {
   findAll() {
     return this.service.findAll();
   }
-
+  /*
+   **-------------------------------------------------------------------------------------
+   ** METHOD NAME - Seed
+   **-------------------------------------------------------------------------------------
+   */
+  @Get('seed')
+  @ApiOperation({
+    summary: 'Seed all surveys',
+    requestBody: {
+      description: 'x',
+      required: false,
+      content: {},
+    },
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Seed surveys',
+  })
+  seed() {
+    return this.service.seed();
+  }
   /*
    **-------------------------------------------------------------------------------------
    ** METHOD NAME - findOne
@@ -67,7 +95,7 @@ export class SurveysController {
   @ApiOperation({
     summary: 'Get one survey by ID',
     requestBody: {
-      description: 'x',
+      description: 'Get one',
       required: false,
       content: {},
     },
@@ -77,7 +105,7 @@ export class SurveysController {
     description: 'Returns one Survey',
   })
   findOne(@Param('id') id: string) {
-    return this.service.findOne(+id);
+    return this.service.findOne(id);
   }
 
   /*
@@ -87,15 +115,15 @@ export class SurveysController {
    */
   @Patch(':id')
   @ApiOperation({
-    summary: 'Not implented yet',
+    summary: 'Updates one record',
     requestBody: {
-      description: 'Currently in development',
+      description: 'update survey',
       required: false,
       content: {},
     },
   })
   update(@Param('id') id: string, @Body() updateSurveyDto: UpdateDto) {
-    return this.service.update(+id, updateSurveyDto);
+    return this.service.update(id, updateSurveyDto);
   }
 
   /*
@@ -105,14 +133,14 @@ export class SurveysController {
    */
   @Delete(':id')
   @ApiOperation({
-    summary: 'Not implented yet',
+    summary: 'Delete one record',
     requestBody: {
-      description: 'Currently in development',
+      description: 'Delete one record set isActive to false',
       required: false,
       content: {},
     },
   })
   remove(@Param('id') id: string) {
-    return this.service.remove(+id);
+    return this.service.remove(id);
   }
 }

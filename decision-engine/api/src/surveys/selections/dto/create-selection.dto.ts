@@ -3,7 +3,7 @@ import { IsDefined, IsNumber } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateSelectionDto {
-  id: number;
+  _id: number | string;
   @IsDefined()
   selection: number | string | Boolean;
   @IsDefined()
@@ -21,6 +21,6 @@ export class SelectionDecisionDto {
   questionId: number;
   @IsDefined()
   @IsNumber()
-  @ApiProperty({ type: Number })
-  surveyId: number;
+  @ApiProperty({ type: String })
+  surveyId: string;
 }

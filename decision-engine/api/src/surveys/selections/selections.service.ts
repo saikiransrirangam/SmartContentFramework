@@ -2,7 +2,10 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { surveys } from '../data';
 import { questions as availableQuesetions } from '../questions/data';
-import { CreateSelectionDto, SelectionDecisionDto } from './dto/create-selection.dto';
+import {
+  CreateSelectionDto,
+  SelectionDecisionDto,
+} from './dto/create-selection.dto';
 import { UpdateSelectionDto } from './dto/update-selection.dto';
 
 const random = (arr) => Math.floor(Math.random() * arr.length);
@@ -23,7 +26,7 @@ export class SelectionsService {
    **-------------------------------------------------------------------------------------
    */
   decision(payload: SelectionDecisionDto) {
-    const { questions } = surveys.find((e) => e.id === payload.surveyId);
+    const { questions } = surveys.find((e) => e._id === payload.surveyId);
     const questionIndex = questions.indexOf(payload.questionId);
     if (questionIndex === -1) throw new NotFoundException();
     if (questionIndex === questions.length - 1) return null;

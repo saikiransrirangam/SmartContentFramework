@@ -1,11 +1,16 @@
-import { ArrayMinSize, IsArray, IsBoolean, IsDefined, IsOptional, IsString } from 'class-validator';
+import {
+  ArrayMinSize,
+  IsArray,
+  IsBoolean,
+  IsDefined,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class CreateSurveyDto {
-  id: number;
-
   @IsDefined()
   @IsString()
-  question: string;
+  title: string;
 
   @IsOptional()
   @IsString()

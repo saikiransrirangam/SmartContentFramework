@@ -1,4 +1,8 @@
+import { Model } from 'mongoose';
+import { Survey } from 'src/database/schemas/survey.schema';
+
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
 
 import { surveys } from './data';
 import { CreateSurveyDto } from './dto/create-survey.dto';
@@ -8,11 +12,18 @@ import { UpdateSurveyDto } from './dto/update-survey.dto';
 export class SurveysService {
   /*
    **-------------------------------------------------------------------------------------
+   ** METHOD NAME - constructory
+   **-------------------------------------------------------------------------------------
+   */
+  constructor(@InjectModel(Survey.name) private model: Model<Survey>) {}
+  /*
+   **-------------------------------------------------------------------------------------
    ** METHOD NAME - create
    **-------------------------------------------------------------------------------------
    */
-  create(createSurveyDto: CreateSurveyDto) {
-    return 'This action adds a new survey';
+  create(payload: CreateSurveyDto) {
+    const model = new this.model(payload);
+    return model.save();
   }
   /*
    **-------------------------------------------------------------------------------------
@@ -20,32 +31,50 @@ export class SurveysService {
    **-------------------------------------------------------------------------------------
    */
   findAll() {
-    return surveys.map((survey) => {
-      return { ...survey };
-    });
+    return this.model.find().exec();
   }
   /*
    **-------------------------------------------------------------------------------------
    ** METHOD NAME - findOne
    **-------------------------------------------------------------------------------------
    */
-  findOne(id: number) {
-    return surveys.find((e) => e.id === id);
+  findOne(id: string) {
+    return this.model.findById(id);
   }
   /*
    **-------------------------------------------------------------------------------------
    ** METHOD NAME - update
    **-------------------------------------------------------------------------------------
    */
-  update(id: number, updateSurveyDto: UpdateSurveyDto) {
-    return `This action updates a #${id} survey`;
+  update(id, payload: UpdateSurveyDto) {
+    return this.model.updateOne(payload);
   }
   /*
    **-------------------------------------------------------------------------------------
    ** METHOD NAME - remove
    **-------------------------------------------------------------------------------------
    */
-  remove(id: number) {
-    return `This action removes a #${id} survey`;
+  remove(id: string) {
+    return this.model.updateOne({ id }, { isActive: false });
+  }
+  /*
+   **-------------------------------------------------------------------------------------
+   ** METHOD NAME - seed
+   **-------------------------------------------------------------------------------------
+   */
+  public async seed() {
+    surveys.map(async (item) => {
+      const survey = await this.model.findOne({ _id: item._id });
+      if (survey) {
+        await this.update(survey._id, {
+          title: survey.title,
+          description: survey.description,
+          isActive: survey.isActive,
+          questions: survey.questions,
+        });
+        return;
+      }
+      await this.create(item);
+    });
   }
 }

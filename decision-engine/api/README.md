@@ -101,6 +101,8 @@ return number | null
 
 ```
 
-## Stay in touch
+## Seed Database
 
-- Author - [Josh Gonzalez](https://zetaglobal.com)
+To seed the database run the following api endpoint
+
+http://localhost:3000/v1/surveys/seed

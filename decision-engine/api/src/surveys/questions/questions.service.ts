@@ -20,9 +20,9 @@ export class QuestionsService {
    ** METHOD NAME - findAll
    **-------------------------------------------------------------------------------------
    */
-  findAll(surveyId: number) {
+  findAll(surveyId: any) {
     const { questions: surveyQuestionIds } =
-      surveys.find((e) => e.id === surveyId) || {};
+      surveys.find((e) => e._id === surveyId) || {};
     if (!surveyQuestionIds) throw new NotFoundException();
     return questions.filter((e) => surveyQuestionIds.includes(e.id));
   }
