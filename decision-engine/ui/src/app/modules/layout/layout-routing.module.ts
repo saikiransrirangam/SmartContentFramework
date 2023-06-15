@@ -10,6 +10,12 @@ const routes: Routes = [
     loadChildren: () =>
       import('../dashboard/dashboard.module').then((m) => m.DashboardModule),
   },
+  {
+    path: 'workflow',
+    component: LayoutComponent,
+    loadChildren: () =>
+      import('../workflow/workflow.module').then((m) => m.WorkflowModule),
+  },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: '**', redirectTo: 'error/404' },
 ];
