@@ -1,0 +1,66 @@
+<div class="px-4 py-4 mx-auto sm:px-8">
+    <div class="flex justify-between mb-5">
+        <app-page-header pageTitle="Survey 1 Workflow" breadcrumbs="Dashboard / Surveys / Workflow"></app-page-header>
+        <div class="flex gap-x-5">
+            <button (click)="cancel()" class="bg-gray-50 focus:ring-gray-500 hover:bg-gray-400 group relative mb-10 flex justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2">
+                Cancel
+            </button>
+            <button (click)="save()" class="bg-primary-500 focus:ring-primary-500 hover:bg-primary-400 group relative mb-10 flex justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2">
+                Save Workflow
+            </button>
+        </div>
+    </div>
+
+    <section class="p-4 rounded-lg page">
+        <div class="content">
+            <div id="palette">
+                <div id="palette-heading">
+                    <h2 id="palette-title">Survey Questions</h2>
+                </div>
+                <section class="grid grid-cols-1 divide-y divide-gray-200 palette-section divide-opacity-25">
+                    <div class="py-5 operation" *ngFor="let op of operations" [ngFlowchartStep]="{
+                            template: op.template,
+                            data: op.data,
+                            type: op.type
+                        }">
+                        <mat-icon [ngStyle]="{ color: op.data.color }">{{ op.data.icon }}
+                        </mat-icon>
+
+                        <h4>{{ op.name | truncate:20 }}</h4>
+                    </div>
+                </section>
+                <div id="palette-heading">
+                    <h2 id="palette-title">Pages</h2>
+                </div>
+                <section class="grid grid-cols-1 divide-y divide-gray-200 palette-section divide-opacity-25">
+                    <div class="py-5 operation" *ngFor="let op of pages" [ngFlowchartStep]="{
+                            template: op.template,
+                            data: op.data,
+                            type: op.type
+                        }">
+                        <mat-icon [ngStyle]="{ color: op.data.color }">{{ op.data.icon }}
+                        </mat-icon>
+
+                        <h4>{{ op.name | truncate:20 }}</h4>
+                    </div>
+                </section>
+                <div id="palette-heading">
+                    <h2 id="palette-title">Components</h2>
+                </div>
+                <section class="grid grid-cols-1 divide-y divide-gray-200 palette-section divide-opacity-25">
+                    <div class="py-5 operation" *ngFor="let op of components" [ngFlowchartStep]="{
+                            template: op.template,
+                            data: op.data,
+                            type: op.type
+                        }">
+                        <mat-icon [ngStyle]="{ color: op.data.color }">{{ op.data.icon }}
+                        </mat-icon>
+
+                        <h4>{{ op.name | truncate:20 }}</h4>
+                    </div>
+                </section>
+            </div>
+            <div id="canvas" ngFlowchartCanvas [ngFlowchartOptions]="options"></div>
+        </div>
+    </section>
+</div>

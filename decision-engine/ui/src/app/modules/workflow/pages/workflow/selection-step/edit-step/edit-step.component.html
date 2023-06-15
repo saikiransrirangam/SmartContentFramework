@@ -1,0 +1,26 @@
+<div class="p-4">
+    <h2 mat-dialog-title>
+        <mat-icon [ngStyle]="{ color: data.color }">{{ data.icon }}</mat-icon>
+        <span>Selection</span>
+    </h2>
+    <mat-dialog-content class="mat-typography">
+        <form [formGroup]="form" autocomplete="off">
+            <section class="input-section">
+                <div>
+                    <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Selection Value</label>
+                    <div class="mt-2">
+                        <input formControlName="selectionValue" type="text" name="title" id="title" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                </div>
+            </section>
+        </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-dialog-close class="bg-gray-50 mr-5 focus:ring-gray-500 hover:bg-gray-400 group relative mb-10 flex justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2">
+    Cancel
+  </button>
+        <button (click)="onSave()" class="bg-primary-500 focus:ring-primary-500 hover:bg-primary-400 group relative mb-10 flex justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2">
+    Save
+  </button>
+    </mat-dialog-actions>
+</div>

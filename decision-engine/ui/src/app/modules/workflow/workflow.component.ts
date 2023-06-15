@@ -1,21 +1,27 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { MenuService } from '../layout/services/menu.service';
 
 @Component({
-	selector: 'app-page-header',
-	templateUrl: './page-header.component.html',
+	selector: 'app-workflow',
+	templateUrl: './workflow.component.html',
+	styleUrls: ['./workflow.scss'],
 })
-export class PageHeaderComponent implements OnInit {
-	@Input('pageTitle') pageTitle: string = '';
+export class WorkflowComponent implements OnInit {
 	/*
 	 **-------------------------------------------------------------------------------------
 	 ** METHOD NAME - constructor
 	 **-------------------------------------------------------------------------------------
 	 */
-	constructor() {}
+	constructor(private readonly menuService: MenuService) {}
 	/*
 	 **-------------------------------------------------------------------------------------
 	 ** METHOD NAME - ngOnInit
 	 **-------------------------------------------------------------------------------------
 	 */
-	ngOnInit(): void {}
+	ngOnInit(): void {
+		setTimeout(() => {
+			this.menuService.toggleSidebar();
+		}, 500);
+	}
 }

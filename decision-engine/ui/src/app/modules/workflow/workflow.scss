@@ -1,0 +1,18 @@
+.step {
+    background: #343434;
+    padding: 1em;
+    border-radius: 3px;
+    z-index: 1;
+    min-width: 10em;
+    & .header {
+        position: relative;
+        display: flex;
+        align-items: center;
+        & :not(:last-child) {
+            margin-right: 8px;
+        }
+        & .step-name {
+            flex-grow: 1;
+        }
+    }
+}

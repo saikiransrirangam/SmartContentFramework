@@ -1,48 +1,64 @@
 <!-- login form -->
 <form class="my-10 space-y-6" [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="text-center">
-        <h2 class="mb-1 flex justify-center text-center text-3xl font-semibold text-gray-700 dark:text-white">
-            <img src="assets/zeta-logos/Original-Logo-Symbol.png" class="h-auto w-8/12 object-contain" />
-        </h2>
-        <p class="dark:text-night-200 text-sm text-gray-400">
-            Enter your credential to access your account.
-        </p>
-    </div>
-    <button type="button" routerLink="/secure/dashboard" class="focus:ring-primary-500 dark:border-night-500 dark:bg-night-700 dark:text-night-200 dark:hover:bg-night-600 flex w-full items-center justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-400 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2">
-    <svg-icon src="assets/icons/google-logo.svg" [svgClass]="'h-6 w-6 mr-2'">
-    </svg-icon>
-    Log in with Google
-  </button>
-
-    <div class="dark:before:border-night-500 dark:after:border-night-500 my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-gray-300 after:mt-0.5 after:flex-1 after:border-t after:border-gray-300">
-        <p class="dark:text-night-400 mx-4 mb-0 text-center text-sm text-gray-400">
-            or
-        </p>
-    </div>
-
-    <div class="space-y-3 text-left">
-        <div class="form__group">
-            <div class="relative">
-                <input type="text" id="email" [ngClass]="{ 'is__invalid-input': submitted && f['email'].errors }" class="peer block" placeholder=" " formControlName="email" />
-                <label for="email" class="peer-focus:text-primary-500 dark:bg-night-700 dark:text-night-200 absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-95 peer-focus:px-2">
+  <div class="text-center">
+    <h2
+      class="mb-1 flex justify-center text-center text-3xl font-semibold text-gray-700 dark:text-white"
+    >
+      <img
+        src="assets/zeta-logos/Original-Logo-Symbol.png"
+        class="h-auto w-8/12 object-contain"
+      />
+    </h2>
+    <p class="dark:text-night-200 text-sm text-gray-400">
+      Enter your credential to access your account.
+    </p>
+  </div>
+  <div class="space-y-3 text-left">
+    <div class="form__group">
+      <div class="relative">
+        <input
+          type="text"
+          id="email"
+          [ngClass]="{ 'is__invalid-input': submitted && f['email'].errors }"
+          class="peer block"
+          placeholder=" "
+          formControlName="email"
+        />
+        <label
+          for="email"
+          class="peer-focus:text-primary-500 dark:bg-night-700 dark:text-night-200 absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-95 peer-focus:px-2"
+        >
           Email address
         </label>
-            </div>
-            <div *ngIf="submitted && f['email'].errors" class="is__invalid-error">
-                <div *ngIf="f['email'].errors['required']">Required field</div>
-                <div *ngIf="f['email'].errors['email']">
-                    Email must be an email address valid
-                </div>
-            </div>
+      </div>
+      <div *ngIf="submitted && f['email'].errors" class="is__invalid-error">
+        <div *ngIf="f['email'].errors['required']">Required field</div>
+        <div *ngIf="f['email'].errors['email']">
+          Email must be an email address valid
         </div>
+      </div>
+    </div>
 
-        <div class="form__group">
-            <div class="relative">
-                <input [type]="passwordTextType ? 'text' : 'password'" id="password" [ngClass]="{ 'is__invalid-input': submitted && f['email'].errors }" class="peer block" placeholder=" " formControlName="password" />
-                <label for="password" class="peer-focus:text-primary-600 dark:bg-night-700 dark:text-night-200 absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-95 peer-focus:px-2">
+    <div class="form__group">
+      <div class="relative">
+        <input
+          [type]="passwordTextType ? 'text' : 'password'"
+          id="password"
+          [ngClass]="{ 'is__invalid-input': submitted && f['email'].errors }"
+          class="peer block"
+          placeholder=" "
+          formControlName="password"
+        />
+        <label
+          for="password"
+          class="peer-focus:text-primary-600 dark:bg-night-700 dark:text-night-200 absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-95 peer-focus:px-2"
+        >
           Password
         </label>
-                <span class="dark:text-night-300 absolute top-2.5 right-5 cursor-pointer text-gray-400" (click)="togglePasswordTextType()">
+        <span
+          class="dark:text-night-300 absolute top-2.5 right-5 cursor-pointer text-gray-400"
+          (click)="togglePasswordTextType()"
+        >
           <svg-icon
             [src]="
               !passwordTextType
@@ -53,15 +69,17 @@
           >
           </svg-icon>
         </span>
-            </div>
-            <div *ngIf="submitted && f['password'].errors" class="is__invalid-error">
-                <div *ngIf="f['password'].errors['required']">Required field</div>
-            </div>
-        </div>
+      </div>
+      <div *ngIf="submitted && f['password'].errors" class="is__invalid-error">
+        <div *ngIf="f['password'].errors['required']">Required field</div>
+      </div>
     </div>
+  </div>
 
-    <!-- Submit Button -->
-    <button class="bg-primary-500 focus:ring-primary-500 hover:bg-primary-400 group relative mb-10 flex w-full justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2">
+  <!-- Submit Button -->
+  <button
+    class="bg-primary-500 focus:ring-primary-500 hover:bg-primary-400 group relative mb-10 flex w-full justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2"
+  >
     Sign in
   </button>
 </form>
