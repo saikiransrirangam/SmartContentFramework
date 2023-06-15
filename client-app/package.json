@@ -14,10 +14,12 @@
         "@types/react": "^18.0.0",
         "@types/react-dom": "^18.0.0",
         "axios": "^1.4.0",
+        "craco": "^0.0.3",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-query": "^3.39.3",
         "react-redux": "^8.1.0",
+        "react-router-dom": "^6.13.0",
         "react-scripts": "5.0.1",
         "redux": "^4.2.1",
         "redux-first-history": "^5.1.1",
@@ -27,7 +29,7 @@
         "web-vitals": "^2.1.0"
     },
     "scripts": {
-        "start": "craco start",
+        "start": "set PORT=3006 && craco start",
         "build": "craco build",
         "test": "craco test",
         "eject": "react-scripts eject"

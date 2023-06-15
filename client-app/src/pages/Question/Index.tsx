@@ -1,11 +1,12 @@
-import { push } from 'redux-first-router';
-
 import BreadCrumbs from '@zeta/core/components/Breadcrumbs/Index';
 import Button from '@zeta/core/components/Buttons/Button';
 import SecondaryButton from '@zeta/core/components/Buttons/SecondaryButton';
 import Card from '@zeta/core/components/Card/Index';
 import CodeBlock from '@zeta/core/components/Code/Index';
 import Loader from '@zeta/core/components/Loader';
+import { useNavigate, useParams} from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { getQuestion } from '@zeta/data/api';
 
 const breadcrumbs = [
 	{
@@ -24,13 +25,15 @@ const breadcrumbs = [
 	},
 	{
 		key: 'question',
-		name: 'Question 1',
+		name: 'Questions',
 		href: ``,
 		current: true,
 		show: true,
 	},
 ];
 export default function Question({}: {}) {
+	const navigate = useNavigate()
+
 	/*
 	 **-------------------------------------------------------------------------------------
 	 ** FN NAME - handlenBreadcrumbClick
@@ -42,9 +45,24 @@ export default function Question({}: {}) {
 	 ** FN NAME - goToQuestion
 	 **-------------------------------------------------------------------------------------
 	 */
-	const goToQuestion = () => {
+	 const { surveyid, queid } = useParams();
+	 console.log("surveyid::" + surveyid)
+	 console.log("quesid::" + queid)
+
+	 const { data: questions,isLoading, isError} = useQuery(['questions', queid], () => getQuestion(surveyid,queid));
+	 if (isLoading) {
+		return <p>Loading surveys...</p>;
+	  }
+	
+	  if (isError) {
+		return <p>Error loading surveys:</p>;
+	  }
+	  console.log("data" + questions.question)
+
+
+	const goToQuestion = (surveyid) => {
 		const questionId = Math.floor(Math.random() * 10);
-		push(`/surveys/1/question/${questionId}`);
+		navigate(`/surveys/${surveyid}/questions/${questionId}`);
 	};
 	return (
 		<>
@@ -70,7 +88,7 @@ export default function Question({}: {}) {
 									<div className="w-full">
 										<div className="w-full lt-md:mb-5">
 											<h1 className="text-2xl font-semibold capitalize">
-												Do you like trump?
+												{questions.question}
 											</h1>
 										</div>
 									</div>
@@ -82,29 +100,25 @@ export default function Question({}: {}) {
 									</div>
 									<div className="overflow-scroll-y">
 										<p className="px-4 text-base">
-											Lorem, ipsum dolor sit amet consectetur adipisicing
-											elit. Quia in fugit nostrum at maiores ad praesentium,
-											laudantium magni obcaecati modi laborum tempore
-											voluptates veritatis quod fuga omnis labore aspernatur
-											veniam.
+											{questions.description}
 										</p>
 									</div>
 									<div className="flex justify-center w-full mt-5 gap-x-5">
 										<Button
 											text={'Yes'}
 											showIcon={false}
-											handleClick={goToQuestion}
-										/>
+											handleClick={() => goToQuestion(surveyid)}
+											/>
 										<SecondaryButton
 											text={'No'}
 											showIcon={false}
-											handleClick={goToQuestion}
-										/>
+											handleClick={() => goToQuestion(surveyid)}
+											/>
 									</div>
 								</Card>
 							</div>
 						</div>
-						<div className="flex flex-col gap-y-10">
+						{/* <div className="flex flex-col gap-y-10">
 							<CodeBlock code="GET /v1/survey/:ID/questions/:QUESTION_ID" />
 							<div className="flex flex-col gap-y-2">
 								<h3 className="text-base">On selection call this end point</h3>
@@ -119,7 +133,7 @@ export default function Question({}: {}) {
 								<h3 className="text-base">Response</h3>
 								<CodeBlock code="POST Body: Next Question ID (Number) OR Null (if there are no more questions)" />
 							</div>
-						</div>
+						</div> */}
 					</main>
 				</div>
 			</div>
