@@ -2,37 +2,29 @@
     <div class="flex items-center">
         <div class="flex flex-col justify-items-start">
             <a href="#" class="dark:text-night-100 dark:hover:text-primary-500 mb-1 text-sm font-semibold text-gray-900">
-        {{ dataRow.title }}
-      </a>
+              {{ dataRow.title }}
+            </a>
         </div>
     </div>
 </td>
-<td class="py-2 pl-2 text-right">
+<td class="py-2 pl-2 text-left">
     <span class="dark:text-night-200 text-sm font-semibold text-gray-400">{{ dataRow.description }}
   </span>
 </td>
+
 <td class="py-2 pl-2 text-right">
-    <span class="dark:text-night-200 text-sm font-semibold text-gray-400">{{
-    dataRow.questionTotal
-  }}</span>
-</td>
-<td class="py-2 pl-2 text-right">
-    <span class="dark:text-night-200 text-sm font-semibold text-gray-400">{{ dataRow.submissonTotal }}
-  </span>
-</td>
-<td class="py-2 pl-2 text-right">
-    <span class="dark:text-night-200 text-sm font-semibold text-gray-400">{{
-    dataRow.active
-  }}</span>
+    <span class="dark:text-night-200 text-sm font-semibold text-gray-400">
+      {{dataRow.active}}
+    </span>
 </td>
 <td class="py-2 pl-2 text-right">
     <div class="flex justify-end">
         <button (click)="navigate()" class="dark:bg-night-500 dark:text-night-300 flex h-7 w-7 items-center justify-center rounded-md bg-gray-200 text-gray-400">
-      <svg-icon
-        src="assets/icons/outline/arrow-sm-right.svg"
-        [svgClass]="'h-5 w-5'"
-      >
-      </svg-icon>
+        <svg-icon
+          src="assets/icons/outline/arrow-sm-right.svg"
+          [svgClass]="'h-5 w-5'"
+        >
+        </svg-icon>
     </button>
     </div>
 </td>

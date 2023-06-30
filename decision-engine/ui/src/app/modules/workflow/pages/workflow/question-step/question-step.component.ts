@@ -46,7 +46,7 @@ export class QuestionStepComponent extends NgFlowchartStepComponent {
 	 **-------------------------------------------------------------------------------------
 	 */
 	override getDropPositionsForStep(): NgFlowchart.DropPosition[] {
-		return ['BELOW'];
+		return ['RIGHT'];
 	}
 	/*
 	 **-------------------------------------------------------------------------------------

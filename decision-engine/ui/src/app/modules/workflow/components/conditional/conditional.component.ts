@@ -3,7 +3,11 @@ import { NgFlowchart, NgFlowchartStepComponent } from 'src/app/shared/components
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { ConfigData, EditStepComponent } from './edit-step/edit-step.component';
+import { WorkflowActionComponent } from '../actions/action.component';
+import {
+	ConfigData,
+	EditConditionalComponent,
+} from './edit-conditional/edit-conditional.component';
 
 export type StandardStepData = {
 	name: string;
@@ -13,12 +17,14 @@ export type StandardStepData = {
 };
 
 @Component({
-	selector: 'app-selection-step',
-	templateUrl: './selection-step.component.html',
-	styleUrls: ['./selection-step.component.scss'],
+	selector: 'workflow-conditional-step',
+	templateUrl: './conditional.component.html',
+	styleUrls: ['./conditional.component.scss'],
 })
-export class SelectionStepComponent extends NgFlowchartStepComponent {
+export class ConditionalComponent extends NgFlowchartStepComponent {
 	name: string;
+	formData: any = {};
+	isDirty: boolean = false;
 	/*
 	 **-------------------------------------------------------------------------------------
 	 ** METHOD NAME - constructor
@@ -34,6 +40,7 @@ export class SelectionStepComponent extends NgFlowchartStepComponent {
 	 */
 	override ngOnInit(): void {
 		this.name = this.data.name;
+		this.formData.conditionName = this.name;
 	}
 	/*
 	 **-------------------------------------------------------------------------------------
@@ -57,15 +64,35 @@ export class SelectionStepComponent extends NgFlowchartStepComponent {
 	 **-------------------------------------------------------------------------------------
 	 */
 	onEdit() {
-		const dialogRef = this.matdialog.open(EditStepComponent, {
-			data: this.data,
-			width: '500px',
+		const dialogRef = this.matdialog.open(EditConditionalComponent, {
+			data: this.formData,
+
+			width: '100vw',
+			minHeight: '25vh',
 		});
 		let sub = dialogRef.beforeClosed().subscribe(data => {
 			if (data) {
-				this.name = data.selectionValue;
+				this.formData = data;
+				this.name = data.conditionName;
+				this.data = data;
+				this.data.conditionName = data.conditionName;
+			}
+			if (!this.isDirty) {
+				this.addChild(
+					{
+						template: WorkflowActionComponent,
+						type: 'action',
+						data: {
+							rules: [...this.formData.conditions],
+						},
+					},
+					{
+						sibling: true,
+					}
+				);
 			}
 
+			this.isDirty = true;
 			sub.unsubscribe();
 		});
 	}

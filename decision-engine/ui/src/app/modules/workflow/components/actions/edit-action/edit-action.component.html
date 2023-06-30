@@ -1,0 +1,47 @@
+<div class="relative h-full p-4">
+    <h2 mat-dialog-title>
+        <span>API Action Event</span>
+    </h2>
+    <mat-dialog-content class="mat-typography ">
+        <form [formGroup]="form" autocomplete="off" class="mb-10">
+            <section class="my-5 mb-20">
+                <div class="my-5">
+                    <label for="email" class="block text-sm font-medium leading-6 text-gray-900">HTTP Method</label>
+                    <div>
+                        <select formControlName="method" id="dataAttribute" name="dataAttribute" class="block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            <option>GET</option>
+                            <option>POST</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="my-5">
+                    <label for="email" class="block text-sm font-medium leading-6 text-gray-900">HTTP Endpint</label>
+                    <div>
+                        <input formControlName="endpoint" type="text" name="conditionName" id="conditionName" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                </div>
+                <div>
+                    <label for="comment" class="block text-sm font-medium leading-6 text-gray-900">JSON Input</label>
+                    <div class="mt-2">
+                        <textarea rows="4" name="comment" id="comment" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+{
+    "firstName": "$firstName"
+}
+                        </textarea>
+                    </div>
+                </div>
+            </section>
+        </form>
+    </mat-dialog-content>
+    <div class="absolute bottom-0 right-5">
+
+        <mat-dialog-actions align="end">
+            <button mat-dialog-close class="relative flex justify-center px-4 py-2 mb-10 mr-5 text-sm font-medium text-gray-800 border border-transparent rounded-md bg-gray-50 focus:ring-gray-500 hover:bg-gray-400 group focus:outline-none focus:ring-2 focus:ring-offset-2">
+            Cancel
+        </button>
+            <button (click)="onSave()" class="relative flex justify-center px-4 py-2 mb-10 text-sm font-medium text-white border border-transparent rounded-md bg-primary-500 focus:ring-primary-500 hover:bg-primary-400 group focus:outline-none focus:ring-2 focus:ring-offset-2">
+            Save
+        </button>
+        </mat-dialog-actions>
+    </div>
+</div>

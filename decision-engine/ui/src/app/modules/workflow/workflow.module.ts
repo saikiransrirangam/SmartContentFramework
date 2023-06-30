@@ -1,5 +1,6 @@
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { NgFlowchartModule } from 'src/app/shared/components/flowchart';
+import { NgZorroAntdModule } from 'src/app/shared/ng-zorro.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 import { CommonModule } from '@angular/common';
@@ -14,11 +15,14 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+import { components, secondaryComponents } from './components';
 import { QuestionStepComponent } from './pages/workflow/question-step/question-step.component';
 import { EditStepComponent } from './pages/workflow/selection-step/edit-step/edit-step.component';
 import { SelectionStepComponent } from './pages/workflow/selection-step/selection-step.component';
 import { EditPageComponent } from './pages/workflow/survey-complete/edit-page/edit-page.component';
-import { SurveyCompleteComponent } from './pages/workflow/survey-complete/survey-complete.component';
+import {
+    SurveyCompleteComponent
+} from './pages/workflow/survey-complete/survey-complete.component';
 import { WorkflowPageComponent } from './pages/workflow/workflow.component';
 import { WorkflowRoutingModule } from './workflow-routing.module';
 import { WorkflowComponent } from './workflow.component';
@@ -32,6 +36,8 @@ import { WorkflowComponent } from './workflow.component';
 		QuestionStepComponent,
 		EditPageComponent,
 		SurveyCompleteComponent,
+		...components,
+		...secondaryComponents,
 	],
 	imports: [
 		NgFlowchartModule,
@@ -51,6 +57,7 @@ import { WorkflowComponent } from './workflow.component';
 		FormsModule,
 		MatSnackBarModule,
 		MatDialogModule,
+		NgZorroAntdModule,
 	],
 })
 export class WorkflowModule {}

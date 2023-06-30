@@ -1,10 +1,11 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
-import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { CreateSelectionDto as CreateDto, SelectionDecisionDto } from './dto/create-selection.dto';
 import { UpdateSelectionDto as UpdateDto } from './dto/update-selection.dto';
 import { SelectionsService } from './selections.service';
 
+@ApiTags('Selections')
 @Controller({
   version: '1',
   path: 'surveys/:id/selections',

@@ -19,9 +19,5 @@ export class WorkflowComponent implements OnInit {
 	 ** METHOD NAME - ngOnInit
 	 **-------------------------------------------------------------------------------------
 	 */
-	ngOnInit(): void {
-		setTimeout(() => {
-			this.menuService.toggleSidebar();
-		}, 500);
-	}
+	ngOnInit(): void {}
 }

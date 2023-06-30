@@ -11,4 +11,7 @@ module.exports = {
 			'@zeta': path.resolve(__dirname, 'src/@zeta'),
 		},
 	},
+	devServer: {
+		port: 3001,
+	},
 };

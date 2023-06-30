@@ -1,11 +1,10 @@
+import { useQuery } from 'react-query';
+import { useNavigate, useParams } from 'react-router-dom';
+
 import BreadCrumbs from '@zeta/core/components/Breadcrumbs/Index';
 import Button from '@zeta/core/components/Buttons/Button';
 import SecondaryButton from '@zeta/core/components/Buttons/SecondaryButton';
 import Card from '@zeta/core/components/Card/Index';
-import CodeBlock from '@zeta/core/components/Code/Index';
-import Loader from '@zeta/core/components/Loader';
-import { useNavigate, useParams} from 'react-router-dom';
-import { useQuery } from 'react-query';
 import { getQuestion } from '@zeta/data/api';
 
 const breadcrumbs = [
@@ -32,7 +31,7 @@ const breadcrumbs = [
 	},
 ];
 export default function Question({}: {}) {
-	const navigate = useNavigate()
+	const navigate = useNavigate();
 
 	/*
 	 **-------------------------------------------------------------------------------------
@@ -45,28 +44,30 @@ export default function Question({}: {}) {
 	 ** FN NAME - goToQuestion
 	 **-------------------------------------------------------------------------------------
 	 */
-	 const { surveyid, queid } = useParams();
-	 console.log("surveyid::" + surveyid)
-	 console.log("quesid::" + queid)
+	const { surveyid, queid } = useParams();
+	console.log('surveyid::' + surveyid);
+	console.log('quesid::' + queid);
 
-	 const { data: questions,isLoading, isError} = useQuery(['questions', queid], () => getQuestion(surveyid,queid));
-	 if (isLoading) {
+	const {
+		data: questions,
+		isLoading,
+		isError,
+	} = useQuery(['questions', queid], () => getQuestion(surveyid, queid));
+	if (isLoading) {
 		return <p>Loading surveys...</p>;
-	  }
-	
-	  if (isError) {
+	}
+
+	if (isError) {
 		return <p>Error loading surveys:</p>;
-	  }
-	  console.log("data" + questions.question)
+	}
+	console.log('data' + questions.question);
 
-
-	const goToQuestion = (surveyid) => {
+	const goToQuestion = surveyid => {
 		const questionId = Math.floor(Math.random() * 10);
 		navigate(`/surveys/${surveyid}/questions/${questionId}`);
 	};
 	return (
 		<>
-			<Loader />
 			<div style={{ background: '#FDFDFD', minHeight: '100vh' }}>
 				<div className="relative flex pb-10 mx-auto max-w-7xl lt-md:px-4 lg:px-8">
 					<main className="w-full">
@@ -99,21 +100,19 @@ export default function Question({}: {}) {
 										<h2 className="text-lg font-semibold">Description</h2>
 									</div>
 									<div className="overflow-scroll-y">
-										<p className="px-4 text-base">
-											{questions.description}
-										</p>
+										<p className="px-4 text-base">{questions.description}</p>
 									</div>
 									<div className="flex justify-center w-full mt-5 gap-x-5">
 										<Button
 											text={'Yes'}
 											showIcon={false}
 											handleClick={() => goToQuestion(surveyid)}
-											/>
+										/>
 										<SecondaryButton
 											text={'No'}
 											showIcon={false}
 											handleClick={() => goToQuestion(surveyid)}
-											/>
+										/>
 									</div>
 								</Card>
 							</div>

@@ -1,0 +1,30 @@
+<div #canvasContent class="step w-48">
+    <div class="header">
+        <span class="w-full text-sm">Action API Call</span>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+      </button>
+    </div>
+    <mat-menu #menu="matMenu">
+        <button (click)="onAdd('')" mat-menu-item>
+          <span>Contional</span>
+        </button>
+    </mat-menu>
+    <div class="content">
+        <div>
+            <button (click)="onEdit()" nz-button nzType="dashed" class="add-button">
+              Add API Call
+            </button>
+            <div class="grid grid-cols-2 gap-x-4 gap-y-2 my-5">
+                <div class="border-b">
+                    Action
+                </div>
+                <div class="border-b">
+                    URL
+                </div>
+                <div class="text-xs">{{action}}</div>
+                <div class="text-xs whitespace-nowrap">{{endpoint}}</div>
+            </div>
+        </div>
+    </div>
+</div>

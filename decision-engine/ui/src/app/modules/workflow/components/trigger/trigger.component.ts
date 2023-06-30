@@ -1,30 +1,30 @@
 import { NgFlowchart, NgFlowchartStepComponent } from 'src/app/shared/components/flowchart';
 
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 
-import { ConfigData, EditStepComponent } from './edit-step/edit-step.component';
-
-export type StandardStepData = {
-	name: string;
-	icon: string;
-	color: string;
-	config: Array<ConfigData>;
-};
+import { ConditionalComponent } from '../conditional/conditional.component';
 
 @Component({
-	selector: 'app-selection-step',
-	templateUrl: './selection-step.component.html',
-	styleUrls: ['./selection-step.component.scss'],
+	selector: 'workflow-trigger',
+	templateUrl: './trigger.component.html',
+	styleUrls: ['./trigger.component.scss'],
 })
-export class SelectionStepComponent extends NgFlowchartStepComponent {
-	name: string;
+export class WorkflowTriggerComponent extends NgFlowchartStepComponent {
+	public validateForm!: UntypedFormGroup;
+	public readonly routeData = {
+		name: 'selection',
+		icon: 'alt_route',
+		color: '#2980b9',
+		config: [{}],
+	};
+	public idx = 0;
 	/*
 	 **-------------------------------------------------------------------------------------
 	 ** METHOD NAME - constructor
 	 **-------------------------------------------------------------------------------------
 	 */
-	constructor(private matdialog: MatDialog) {
+	constructor(private fb: UntypedFormBuilder) {
 		super();
 	}
 	/*
@@ -32,20 +32,18 @@ export class SelectionStepComponent extends NgFlowchartStepComponent {
 	 ** METHOD NAME - ngOnInit
 	 **-------------------------------------------------------------------------------------
 	 */
-	override ngOnInit(): void {
-		this.name = this.data.name;
-	}
+	override ngOnInit(): void {}
 	/*
 	 **-------------------------------------------------------------------------------------
 	 ** METHOD NAME - onDelete
 	 **-------------------------------------------------------------------------------------
 	 */
 	onDelete() {
-		this.destroy(false);
+		this.destroy(true);
 	}
 	/*
 	 **-------------------------------------------------------------------------------------
-	 ** METHOD NAME -  getDropPositionsForStep
+	 ** METHOD NAME - getDropPositionsForStep
 	 **-------------------------------------------------------------------------------------
 	 */
 	override getDropPositionsForStep(): NgFlowchart.DropPosition[] {
@@ -53,20 +51,25 @@ export class SelectionStepComponent extends NgFlowchartStepComponent {
 	}
 	/*
 	 **-------------------------------------------------------------------------------------
-	 ** METHOD NAME - onEdit
+	 ** METHOD NAME - onAdd
 	 **-------------------------------------------------------------------------------------
 	 */
-	onEdit() {
-		const dialogRef = this.matdialog.open(EditStepComponent, {
-			data: this.data,
-			width: '500px',
-		});
-		let sub = dialogRef.beforeClosed().subscribe(data => {
-			if (data) {
-				this.name = data.selectionValue;
-			}
+	onAdd(title) {
+		this.idx = this.idx + 1;
+		let route = {
+			...this.routeData,
+			name: `Condition ${this.idx}`,
+		};
 
-			sub.unsubscribe();
-		});
+		this.addChild(
+			{
+				template: ConditionalComponent,
+				type: 'conditional',
+				data: route,
+			},
+			{
+				sibling: true,
+			}
+		);
 	}
 }

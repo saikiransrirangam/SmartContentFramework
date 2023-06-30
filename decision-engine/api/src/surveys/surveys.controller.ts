@@ -1,18 +1,11 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
-  Post,
-} from '@nestjs/common';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { CreateSurveyDto as CreateDto } from './dto/create-survey.dto';
 import { UpdateSurveyDto as UpdateDto } from './dto/update-survey.dto';
 import { SurveysService } from './surveys.service';
 
+@ApiTags('Surveys')
 @Controller({
   version: '1',
   path: 'surveys',

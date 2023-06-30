@@ -7,9 +7,11 @@ import {
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { QuestionStepComponent } from './question-step/question-step.component';
-import { SelectionStepComponent } from './selection-step/selection-step.component';
-import { SurveyCompleteComponent } from './survey-complete/survey-complete.component';
+import {
+	ConditionalComponent,
+	WorkflowActionComponent,
+	WorkflowTriggerComponent,
+} from '../../components';
 
 @Component({
 	selector: 'app-workflow',
@@ -22,100 +24,19 @@ export class WorkflowPageComponent implements OnInit {
 
 	public options: NgFlowchart.Options = new NgFlowchart.Options();
 
-	public operations = [
-		{
-			name: 'Are You Voting',
-			type: 'question',
-			data: {
-				name: 'Are You Voting',
-				icon: 'reorder',
-				color: '#3498db',
-			},
-			template: QuestionStepComponent,
-		},
-		{
-			name: 'Democrat or Republican',
-			type: 'question',
-			data: {
-				name: 'Democrat or Republican',
-				icon: 'reorder',
-				color: '#3498db',
-			},
-
-			template: QuestionStepComponent,
-		},
-		{
-			name: 'Approve of Trump?',
-			type: 'question',
-			data: {
-				name: 'Approve of Trump?',
-				icon: 'reorder',
-				color: '#3498db',
-			},
-
-			template: QuestionStepComponent,
-		},
-		{
-			name: 'Approve of Biden?',
-			type: 'question',
-			data: {
-				name: 'Approve of Biden?',
-				icon: 'reorder',
-				color: '#3498db',
-			},
-
-			template: QuestionStepComponent,
-		},
-	];
-	public components = [
-		{
-			name: 'Alert',
-			type: 'component',
-			data: {
-				name: '',
-				icon: 'settings_input_component',
-				color: '#00A36C',
-			},
-			template: QuestionStepComponent,
-		},
-		{
-			name: 'Confirm',
-			type: 'component',
-			data: {
-				name: '',
-				icon: 'settings_input_component',
-				color: '#00A36C',
-			},
-
-			template: QuestionStepComponent,
-		},
-		{
-			name: 'Redirect',
-			type: 'component',
-			data: {
-				name: '',
-				icon: 'settings_input_component',
-				color: '#00A36C',
-			},
-			template: QuestionStepComponent,
-		},
-	];
-	public pages = [
-		{
-			name: 'Survey Complete',
-			type: 'component',
-			data: {
-				name: 'Survey Complete Page',
-				icon: 'pageview',
-				color: '#E6E6FA',
-				title: '',
-				description: '',
-			},
-
-			template: SurveyCompleteComponent,
-		},
-	];
 	showMenu = false;
+	public initial = {
+		root: {
+			id: '1',
+			type: 'trigger',
+			data: {
+				method: 'POST',
+				endpoint: 'api/v2/users?size=10',
+			},
+			children: [],
+		},
+		connectors: [],
+	};
 	/*
 	 **-------------------------------------------------------------------------------------
 	 ** METHOD NAME - constructor
@@ -128,16 +49,25 @@ export class WorkflowPageComponent implements OnInit {
 	 **-------------------------------------------------------------------------------------
 	 */
 	ngOnInit(): void {
-		this.operations.forEach(op => {
-			this.registry.registerStep(op.type, op.template);
-		});
-		this.registry.registerStep('route', SelectionStepComponent);
-		this.registry.registerStep('page', SurveyCompleteComponent);
+		this.registry.registerStep('trigger', WorkflowTriggerComponent);
+		this.registry.registerStep('conditional', ConditionalComponent);
+		this.registry.registerStep('action', WorkflowActionComponent);
+
 		this.options = {
 			...this.options,
 			stepGap: 40,
 			hoverDeadzoneRadius: 250,
+			rootPosition: 'CENTER',
+			orientation: 'HORIZONTAL',
 		};
+	}
+	/*
+	 **-------------------------------------------------------------------------------------
+	 ** METHOD NAME - ngAfterViewINit
+	 **-------------------------------------------------------------------------------------
+	 */
+	public async ngAfterViewInit() {
+		this.chart.getFlow().upload(this.initial);
 	}
 	/*
 	 **-------------------------------------------------------------------------------------
