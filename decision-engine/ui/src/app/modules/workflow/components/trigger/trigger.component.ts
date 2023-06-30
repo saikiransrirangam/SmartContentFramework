@@ -2,8 +2,10 @@ import { NgFlowchart, NgFlowchartStepComponent } from 'src/app/shared/components
 
 import { Component } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 
 import { ConditionalComponent } from '../conditional/conditional.component';
+import { TriggerSettingsComponent } from './trigger-settings/trigger-settings.component';
 
 @Component({
 	selector: 'workflow-trigger',
@@ -19,12 +21,13 @@ export class WorkflowTriggerComponent extends NgFlowchartStepComponent {
 		config: [{}],
 	};
 	public idx = 0;
+	public actionsDisabled: boolean = true;
 	/*
 	 **-------------------------------------------------------------------------------------
 	 ** METHOD NAME - constructor
 	 **-------------------------------------------------------------------------------------
 	 */
-	constructor(private fb: UntypedFormBuilder) {
+	constructor(private fb: UntypedFormBuilder, private matdialog: MatDialog) {
 		super();
 	}
 	/*
@@ -54,7 +57,7 @@ export class WorkflowTriggerComponent extends NgFlowchartStepComponent {
 	 ** METHOD NAME - onAdd
 	 **-------------------------------------------------------------------------------------
 	 */
-	onAdd(title) {
+	onAdd() {
 		this.idx = this.idx + 1;
 		let route = {
 			...this.routeData,
@@ -71,5 +74,20 @@ export class WorkflowTriggerComponent extends NgFlowchartStepComponent {
 				sibling: true,
 			}
 		);
+	}
+	/*
+	 **-------------------------------------------------------------------------------------
+	 ** METHOD NAME - onEdit
+	 **-------------------------------------------------------------------------------------
+	 */
+	onSettingsModalTrigger() {
+		const dialogRef = this.matdialog.open(TriggerSettingsComponent, {
+			panelClass: 'fullscreen-dialog',
+		});
+		let sub = dialogRef.beforeClosed().subscribe(data => {
+			this.data = data;
+			this.actionsDisabled;
+			sub.unsubscribe();
+		});
 	}
 }

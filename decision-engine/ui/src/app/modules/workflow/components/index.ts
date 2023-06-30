@@ -4,10 +4,15 @@ import { ConditionalComponent } from './conditional/conditional.component';
 import {
     EditConditionalComponent
 } from './conditional/edit-conditional/edit-conditional.component';
+import { TriggerSettingsComponent } from './trigger/trigger-settings/trigger-settings.component';
 import { WorkflowTriggerComponent } from './trigger/trigger.component';
 
 export const components = [WorkflowTriggerComponent, ConditionalComponent, WorkflowActionComponent];
-export const secondaryComponents = [EditConditionalComponent, EditActionComponent];
+export const secondaryComponents = [
+	EditConditionalComponent,
+	EditActionComponent,
+	TriggerSettingsComponent,
+];
 
 export * from './actions/action.component';
 export * from './conditional/conditional.component';

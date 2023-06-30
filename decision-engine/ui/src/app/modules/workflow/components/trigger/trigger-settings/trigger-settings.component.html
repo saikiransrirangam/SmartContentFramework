@@ -1,0 +1,186 @@
+<div class="p-4 relative h-full">
+    <h1 mat-dialog-title>
+        <span>API Webhook Trigger Settings</span>
+    </h1>
+    <form [formGroup]="form" autocomplete="off" nz-form nzLayout="vertical" (ngSubmit)="onSave()">
+        <mat-dialog-content>
+            <div class="grid grid-cols-2 gap-x-5 divide-x-2  mb-5 py-5">
+                <div>
+                    <p class="text-base font-medium">Webhook Trigger URL</p>
+                    <p class="text-sm">Configure the target webhook api you want to enable. You'll find the advanced configuration below, in the advanced settings section.</p>
+                </div>
+                <div>
+                    <div class="ml-5 rounded-md p-4 mb-5">
+                        <nz-form-item>
+                            <nz-form-label nzFor="email">URL for webhook</nz-form-label>
+                            <nz-form-control nzErrorTip="API Webhook is required">
+                                <nz-input-group nzPrefix="http://">
+                                    <input formControlName="webhookUrl" type="text" nz-input />
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-x-5 divide-x-2 mb-5">
+                <div>
+                    <p class="text-base font-medium">Advanced Settings</p>
+                </div>
+                <div>
+                    <div class="ml-5 rounded-md p-4 my-5">
+                        <div class="grid grid-cols-2 gap-x-5">
+                            <nz-form-item>
+                                <nz-form-label nzFor="email">HTTP Method</nz-form-label>
+                                <nz-form-control nzErrorTip="HTTP Method is required">
+                                    <nz-input-group>
+                                        <nz-select formControlName="webhookMethod" nzAllowClear class="w-full">
+                                            <nz-option nzValue="get" nzLabel="GET"></nz-option>
+                                            <nz-option nzValue="post" nzLabel="POST"></nz-option>
+                                            <nz-option nzValue="patch" nzLabel="PATCH"></nz-option>
+                                            <nz-option nzValue="put" nzLabel="PUT"></nz-option>
+                                        </nz-select>
+                                    </nz-input-group>
+                                </nz-form-control>
+                            </nz-form-item>
+                            <nz-form-item>
+                                <nz-form-label nzFor="email">HTTP Timeout</nz-form-label>
+                                <nz-form-control nzErrorTip="HTTP Timeout is required">
+                                    <nz-input-group>
+                                        <nz-select formControlName="webhookTimeout" nzAllowClear class="w-full">
+                                            <nz-option nzValue="1 min" nzLabel="1 Min"></nz-option>
+                                            <nz-option nzValue="1 second" nzLabel="45 Second"></nz-option>
+                                            <nz-option nzValue="1 second" nzLabel="30 Second"></nz-option>
+                                            <nz-option nzValue="1 second" nzLabel="15 Second"></nz-option>
+                                            <nz-option nzValue="1 second" nzLabel="2 Second"></nz-option>
+                                            <nz-option nzValue="1 second" nzLabel="1 Second"></nz-option>
+                                        </nz-select>
+                                    </nz-input-group>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div>
+                            <nz-form-item>
+                                <nz-form-label nzFor="email">Request body for POST, PUT, and PATCH requests</nz-form-label>
+                                <nz-form-control nzErrorTip="Request Body is required">
+                                    <textarea formControlName="requestBody" placeholder="parameter1=first_value&parameter2=another_value" rows="4" nz-input></textarea>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-x-5 divide-x-2  mb-5 py-5">
+                <div>
+                    <p class="text-base font-medium">Request Headers</p>
+                </div>
+                <div>
+                    <div class="ml-5 rounded-md p-4 my-5 grid grid-cols-2 gap-x-5">
+                        <nz-form-item>
+                            <nz-form-label nzFor="email">Header Name</nz-form-label>
+                            <nz-form-control nzErrorTip="Header Name is required">
+                                <nz-input-group>
+                                    <input formControlName="headerName" type="text" nz-input />
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label nzFor="email">Header Value</nz-form-label>
+                            <nz-form-control nzErrorTip="Header Value is required">
+                                <nz-input-group>
+                                    <input formControlName="headerValue" type="text" nz-input />
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-x-5 divide-x-2  mb-5 py-5">
+                <div>
+                    <p class="text-base font-medium">HTTP Authentication</p>
+                </div>
+                <div>
+                    <div class="ml-5 rounded-md p-4 my-5 grid grid-cols-2 gap-x-5">
+                        <nz-form-item>
+                            <nz-form-label nzFor="email">Basic HTTP authentication username
+                            </nz-form-label>
+                            <nz-form-control nzErrorTip="HTTP Username is required">
+                                <nz-input-group>
+                                    <input formControlName="httpAuthUsername" type="text" nz-input />
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label nzFor="email">Basic HTTP authentication password
+                            </nz-form-label>
+                            <nz-form-control nzErrorTip="HTTP Password is required" nzExtra="We store it in an encrypted form.">
+                                <input formControlName="httpAuthPassword" type="password" nz-input />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-x-5 divide-x-2  mb-5 py-5">
+                <div>
+                    <p class="text-base font-medium">Response Model</p>
+                    <p></p>
+                </div>
+                <div>
+                    <div>
+                        <ng-container formArrayName="responseModel">
+                            <div class="ml-5 rounded-md grid grid-cols-2 gap-x-5" *ngFor="let responseModelForm of responseModel.controls; let i = index">
+                                <ng-container [formGroupName]="i">
+                                    <nz-form-item>
+                                        <nz-form-label nzFor="email">Property Name
+                                        </nz-form-label>
+                                        <nz-form-control nzErrorTip="API Webhook is required">
+                                            <nz-input-group>
+                                                <input formControlName="propertyName" type="text" nz-input />
+                                            </nz-input-group>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                    <nz-form-item>
+                                        <nz-form-label nzFor="email">Property Data Type
+                                        </nz-form-label>
+                                        <nz-form-control nzErrorTip="API Webhook is required">
+                                            <nz-select formControlName="dataType" nzAllowClear class="w-full">
+                                                <nz-option nzValue="1 min" nzLabel="String"></nz-option>
+                                                <nz-option nzValue="1 second" nzLabel="Number"></nz-option>
+                                                <nz-option nzValue="1 second" nzLabel="Date"></nz-option>
+                                                <nz-option nzValue="1 second" nzLabel="Boolean"></nz-option>
+                                                <nz-option nzValue="1 second" nzLabel="Object"></nz-option>
+                                                <nz-option nzValue="1 second" nzLabel="Array"></nz-option>
+                                            </nz-select>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </ng-container>
+
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="ml-5">
+                        <nz-form-item>
+                            <nz-form-control>
+                                <button (click)="add()" nz-button nzType="dashed" class="add-button" (click)="addField($event)">
+                                    <span nz-icon nzType="plus"></span>
+                                    Add Property
+                                </button>
+                            </nz-form-control>
+                        </nz-form-item>
+
+                    </div>
+                </div>
+            </div>
+        </mat-dialog-content>
+        <div class="">
+            <mat-dialog-actions align="end">
+                <button mat-dialog-close class="bg-gray-50 mr-5 focus:ring-gray-500 hover:bg-gray-400 group relative mb-10 flex justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2">
+            Cancel
+        </button>
+                <button type="submit" class="bg-primary-500 focus:ring-primary-500 hover:bg-primary-400 group relative mb-10 flex justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2">
+            Save API Settings
+        </button>
+            </mat-dialog-actions>
+        </div>
+    </form>
+</div>
