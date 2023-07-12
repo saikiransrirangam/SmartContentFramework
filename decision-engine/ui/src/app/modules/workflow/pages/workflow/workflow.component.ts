@@ -1,17 +1,15 @@
 import {
-	NgFlowchart,
-	NgFlowchartCanvasDirective,
-	NgFlowchartStepRegistry,
+    NgFlowchart, NgFlowchartCanvasDirective, NgFlowchartStepRegistry
 } from 'src/app/shared/components/flowchart';
 
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import {
-	ConditionalComponent,
-	WorkflowActionComponent,
-	WorkflowTriggerComponent,
+    ConditionalComponent, WorkflowActionComponent, WorkflowTriggerComponent
 } from '../../components';
+import { WorkflowEndComponent } from '../../components/end/end.component';
+import { workflowsData } from '../../data';
 
 @Component({
 	selector: 'app-workflow',
@@ -20,46 +18,36 @@ import {
 })
 export class WorkflowPageComponent implements OnInit {
 	@ViewChild(NgFlowchartCanvasDirective)
-	chart: NgFlowchartCanvasDirective;
-
-	public options: NgFlowchart.Options = new NgFlowchart.Options();
-
-	showMenu = false;
-	public initial = {
-		root: {
-			id: '1',
-			type: 'trigger',
-			data: {
-				method: 'POST',
-				endpoint: 'api/v2/users?size=10',
-			},
-			children: [],
-		},
-		connectors: [],
-	};
+	chart: NgFlowchartCanvasDirective
+	public options: NgFlowchart.Options = new NgFlowchart.Options()
+	showMenu = false
 	/*
 	 **-------------------------------------------------------------------------------------
 	 ** METHOD NAME - constructor
 	 **-------------------------------------------------------------------------------------
 	 */
-	constructor(private registry: NgFlowchartStepRegistry, private readonly router: Router) {}
+	constructor(
+		private registry: NgFlowchartStepRegistry,
+		private readonly router: Router,
+		private readonly ac: ActivatedRoute
+	) {}
 	/*
 	 **-------------------------------------------------------------------------------------
 	 ** METHOD NAME - ngOnInit
 	 **-------------------------------------------------------------------------------------
 	 */
 	ngOnInit(): void {
-		this.registry.registerStep('trigger', WorkflowTriggerComponent);
-		this.registry.registerStep('conditional', ConditionalComponent);
-		this.registry.registerStep('action', WorkflowActionComponent);
-
+		this.registry.registerStep('trigger', WorkflowTriggerComponent)
+		this.registry.registerStep('conditional', ConditionalComponent)
+		this.registry.registerStep('action', WorkflowActionComponent)
+		this.registry.registerStep('end', WorkflowEndComponent)
 		this.options = {
 			...this.options,
 			stepGap: 40,
 			hoverDeadzoneRadius: 250,
 			rootPosition: 'CENTER',
 			orientation: 'HORIZONTAL',
-		};
+		}
 	}
 	/*
 	 **-------------------------------------------------------------------------------------
@@ -67,7 +55,23 @@ export class WorkflowPageComponent implements OnInit {
 	 **-------------------------------------------------------------------------------------
 	 */
 	public async ngAfterViewInit() {
-		this.chart.getFlow().upload(this.initial);
+		this.ac.paramMap.subscribe(params => {
+			const id = params.get('id')
+			if (id) this.chart.getFlow().upload(workflowsData[params.get('id')])
+			else {
+				let id = new Date().getTime()
+
+				const workflow = {
+					root: {
+						id,
+						type: 'trigger',
+						data: {},
+					},
+				}
+				workflowsData[id] = workflow
+				this.chart.getFlow().upload(workflow)
+			}
+		})
 	}
 	/*
 	 **-------------------------------------------------------------------------------------
@@ -83,13 +87,13 @@ export class WorkflowPageComponent implements OnInit {
 	 **-------------------------------------------------------------------------------------
 	 */
 	public save() {
-		let json = this.chart.getFlow().toJSON(4);
-		var x = window.open();
-		x.document.open();
+		let json = this.chart.getFlow().toJSON(4)
+		var x = window.open()
+		x.document.open()
 		x.document.write(
 			'<html><head><title></title></head><body><pre>' + json + '</pre></body></html>'
-		);
-		x.document.close();
+		)
+		x.document.close()
 	}
 	/*
 	 **-------------------------------------------------------------------------------------
@@ -97,6 +101,6 @@ export class WorkflowPageComponent implements OnInit {
 	 **-------------------------------------------------------------------------------------
 	 */
 	public cancel() {
-		this.router.navigateByUrl('/secure/dashboard/surveys');
+		this.router.navigateByUrl('/secure/dashboard/surveys')
 	}
 }

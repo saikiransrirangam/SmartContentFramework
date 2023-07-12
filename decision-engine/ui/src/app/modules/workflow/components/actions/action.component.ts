@@ -5,6 +5,7 @@ import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
 import { ConditionalComponent } from '../conditional/conditional.component';
+import { TriggerSettingsComponent } from '../trigger/trigger-settings/trigger-settings.component';
 import { EditActionComponent } from './edit-action/edit-action.component';
 
 @Component({
@@ -13,38 +14,47 @@ import { EditActionComponent } from './edit-action/edit-action.component';
 	styleUrls: ['./action.component.scss'],
 })
 export class WorkflowActionComponent extends NgFlowchartStepComponent {
-	public validateForm!: UntypedFormGroup;
+	public validateForm!: UntypedFormGroup
 	public readonly routeData = {
 		name: 'HTTP_ACTION',
 		config: [{}],
-	};
-	public idx = 0;
-	name: string;
-	formData: any = {};
-	isDirty: boolean = false;
-	action: string = '';
-	endpoint: string = '';
+	}
+	public idx = 0
+	name: string
+	formData: any = {}
+	isDirty: boolean = false
+	action: string = ''
+	endpoint: string = ''
+	public actionsDisabled: boolean = true
+
 	/*
 	 **-------------------------------------------------------------------------------------
 	 ** METHOD NAME - constructor
 	 **-------------------------------------------------------------------------------------
 	 */
 	constructor(private fb: UntypedFormBuilder, private matdialog: MatDialog) {
-		super();
+		super()
 	}
 	/*
 	 **-------------------------------------------------------------------------------------
 	 ** METHOD NAME - ngOnInit
 	 **-------------------------------------------------------------------------------------
 	 */
-	override ngOnInit(): void {}
+	override ngOnInit(): void {
+		if (this.data?.createTime) {
+			this.isDirty = true
+			this.actionsDisabled = false
+			this.data.showJSONInput = true
+		}
+		//if(this.)
+	}
 	/*
 	 **-------------------------------------------------------------------------------------
 	 ** METHOD NAME - onDelete
 	 **-------------------------------------------------------------------------------------
 	 */
 	onDelete() {
-		this.destroy(true);
+		this.destroy(true)
 	}
 	/*
 	 **-------------------------------------------------------------------------------------
@@ -52,7 +62,7 @@ export class WorkflowActionComponent extends NgFlowchartStepComponent {
 	 **-------------------------------------------------------------------------------------
 	 */
 	override getDropPositionsForStep(): NgFlowchart.DropPosition[] {
-		return ['RIGHT'];
+		return ['RIGHT']
 	}
 	/*
 	 **-------------------------------------------------------------------------------------
@@ -60,11 +70,11 @@ export class WorkflowActionComponent extends NgFlowchartStepComponent {
 	 **-------------------------------------------------------------------------------------
 	 */
 	onAdd(title) {
-		this.idx = this.idx + 1;
+		this.idx = this.idx + 1
 		let route = {
 			...this.routeData,
 			name: `Condition ${this.idx}`,
-		};
+		}
 
 		this.addChild(
 			{
@@ -75,7 +85,7 @@ export class WorkflowActionComponent extends NgFlowchartStepComponent {
 			{
 				sibling: true,
 			}
-		);
+		)
 	}
 	/*
 	 **-------------------------------------------------------------------------------------
@@ -88,16 +98,34 @@ export class WorkflowActionComponent extends NgFlowchartStepComponent {
 
 			width: '100vw',
 			minHeight: '25vh',
-		});
+		})
 		let sub = dialogRef.beforeClosed().subscribe(data => {
 			if (data) {
-				this.formData = data;
-				this.action = data.method;
-				this.endpoint = data.endpoint;
-				this.data = data;
+				this.formData = data
+				this.action = data.method
+				this.endpoint = data.endpoint
+				this.data = data
 			}
 
-			sub.unsubscribe();
-		});
+			sub.unsubscribe()
+		})
+	}
+	/*
+	 **-------------------------------------------------------------------------------------
+	 ** METHOD NAME - onEdit
+	 **-------------------------------------------------------------------------------------
+	 */
+	onSettingsModalTrigger() {
+		const dialogRef = this.matdialog.open(TriggerSettingsComponent, {
+			panelClass: 'fullscreen-dialog',
+			data: this.data,
+		})
+		let sub = dialogRef.beforeClosed().subscribe(({ data, success }) => {
+			if (success) {
+				this.data = data
+				this.actionsDisabled = false
+			}
+			sub.unsubscribe()
+		})
 	}
 }

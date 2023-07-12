@@ -35,7 +35,12 @@ export class WorkflowTriggerComponent extends NgFlowchartStepComponent {
 	 ** METHOD NAME - ngOnInit
 	 **-------------------------------------------------------------------------------------
 	 */
-	override ngOnInit(): void {}
+	override ngOnInit(): void {
+		if (this.data?.createTime) {
+			this.actionsDisabled = false;
+		}
+		//this.onSettingsModalTrigger();
+	}
 	/*
 	 **-------------------------------------------------------------------------------------
 	 ** METHOD NAME - onDelete
@@ -83,10 +88,13 @@ export class WorkflowTriggerComponent extends NgFlowchartStepComponent {
 	onSettingsModalTrigger() {
 		const dialogRef = this.matdialog.open(TriggerSettingsComponent, {
 			panelClass: 'fullscreen-dialog',
+			data: this.data,
 		});
-		let sub = dialogRef.beforeClosed().subscribe(data => {
-			this.data = data;
-			this.actionsDisabled;
+		let sub = dialogRef.beforeClosed().subscribe(({ data, success }) => {
+			if (success) {
+				this.data = data;
+				this.actionsDisabled = false;
+			}
 			sub.unsubscribe();
 		});
 	}

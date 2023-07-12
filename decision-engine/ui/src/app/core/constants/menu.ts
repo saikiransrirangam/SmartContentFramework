@@ -1,4 +1,4 @@
-import { MenuItem } from '../models/menu.model';
+import { MenuItem } from '../models/menu.model'
 
 export class Menu {
 	public static pages: MenuItem[] = [
@@ -11,7 +11,12 @@ export class Menu {
 					label: 'Workflows',
 					route: '/secure/dashboard',
 				},
+				{
+					icon: 'assets/icons/outline/gift.svg',
+					label: 'Advertisers',
+					route: '/secure/advertisers',
+				},
 			],
 		},
-	];
+	]
 }

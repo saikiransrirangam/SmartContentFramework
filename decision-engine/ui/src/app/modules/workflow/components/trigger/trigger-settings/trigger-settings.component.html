@@ -1,20 +1,20 @@
-<div class="p-4 relative h-full">
+<div class="relative h-full p-4">
     <h1 mat-dialog-title>
         <span>API Webhook Trigger Settings</span>
     </h1>
     <form [formGroup]="form" autocomplete="off" nz-form nzLayout="vertical" (ngSubmit)="onSave()">
         <mat-dialog-content>
-            <div class="grid grid-cols-2 gap-x-5 divide-x-2  mb-5 py-5">
+            <div class="grid grid-cols-2 py-5 mb-5 divide-x-2 gap-x-5">
                 <div>
                     <p class="text-base font-medium">Webhook Trigger URL</p>
                     <p class="text-sm">Configure the target webhook api you want to enable. You'll find the advanced configuration below, in the advanced settings section.</p>
                 </div>
                 <div>
-                    <div class="ml-5 rounded-md p-4 mb-5">
+                    <div class="p-4 mb-5 ml-5 rounded-md">
                         <nz-form-item>
                             <nz-form-label nzFor="email">URL for webhook</nz-form-label>
                             <nz-form-control nzErrorTip="API Webhook is required">
-                                <nz-input-group nzPrefix="http://">
+                                <nz-input-group>
                                     <input formControlName="webhookUrl" type="text" nz-input />
                                 </nz-input-group>
                             </nz-form-control>
@@ -22,12 +22,35 @@
                     </div>
                 </div>
             </div>
-            <div class="grid grid-cols-2 gap-x-5 divide-x-2 mb-5">
+            <div *ngIf="data.showJSONInput" class="grid grid-cols-2 mb-5 divide-x-2 gap-x-5">
+                <div>
+                    <p class="text-base font-medium">JSON Payload Sent</p>
+                </div>
+                <div>
+                    <div class="p-4 my-5 ml-5 rounded-md">
+                        <div>
+                            <nz-form-item>
+                                <nz-form-label nzFor="email">JSON Input</nz-form-label>
+                                <nz-form-control nzErrorTip="Request Body is required">
+                                    <textarea rows="4" name="comment" id="comment" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+{
+    "firstName": "$firstName"
+}
+                                    </textarea>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 mb-5 divide-x-2 gap-x-5">
                 <div>
                     <p class="text-base font-medium">Advanced Settings</p>
                 </div>
                 <div>
-                    <div class="ml-5 rounded-md p-4 my-5">
+                    <div class="p-4 my-5 ml-5 rounded-md">
                         <div class="grid grid-cols-2 gap-x-5">
                             <nz-form-item>
                                 <nz-form-label nzFor="email">HTTP Method</nz-form-label>
@@ -70,12 +93,12 @@
 
                 </div>
             </div>
-            <div class="grid grid-cols-2 gap-x-5 divide-x-2  mb-5 py-5">
+            <div class="grid grid-cols-2 py-5 mb-5 divide-x-2 gap-x-5">
                 <div>
                     <p class="text-base font-medium">Request Headers</p>
                 </div>
                 <div>
-                    <div class="ml-5 rounded-md p-4 my-5 grid grid-cols-2 gap-x-5">
+                    <div class="grid grid-cols-2 p-4 my-5 ml-5 rounded-md gap-x-5">
                         <nz-form-item>
                             <nz-form-label nzFor="email">Header Name</nz-form-label>
                             <nz-form-control nzErrorTip="Header Name is required">
@@ -95,12 +118,12 @@
                     </div>
                 </div>
             </div>
-            <div class="grid grid-cols-2 gap-x-5 divide-x-2  mb-5 py-5">
+            <div class="grid grid-cols-2 py-5 mb-5 divide-x-2 gap-x-5">
                 <div>
                     <p class="text-base font-medium">HTTP Authentication</p>
                 </div>
                 <div>
-                    <div class="ml-5 rounded-md p-4 my-5 grid grid-cols-2 gap-x-5">
+                    <div class="grid grid-cols-2 p-4 my-5 ml-5 rounded-md gap-x-5">
                         <nz-form-item>
                             <nz-form-label nzFor="email">Basic HTTP authentication username
                             </nz-form-label>
@@ -120,7 +143,7 @@
                     </div>
                 </div>
             </div>
-            <div class="grid grid-cols-2 gap-x-5 divide-x-2  mb-5 py-5">
+            <div class="grid grid-cols-2 py-5 mb-5 divide-x-2 gap-x-5">
                 <div>
                     <p class="text-base font-medium">Response Model</p>
                     <p></p>
@@ -128,7 +151,7 @@
                 <div>
                     <div>
                         <ng-container formArrayName="responseModel">
-                            <div class="ml-5 rounded-md grid grid-cols-2 gap-x-5" *ngFor="let responseModelForm of responseModel.controls; let i = index">
+                            <div class="grid grid-cols-2 ml-5 rounded-md gap-x-5" *ngFor="let responseModelForm of responseModel.controls; let i = index">
                                 <ng-container [formGroupName]="i">
                                     <nz-form-item>
                                         <nz-form-label nzFor="email">Property Name
@@ -144,12 +167,12 @@
                                         </nz-form-label>
                                         <nz-form-control nzErrorTip="API Webhook is required">
                                             <nz-select formControlName="dataType" nzAllowClear class="w-full">
-                                                <nz-option nzValue="1 min" nzLabel="String"></nz-option>
-                                                <nz-option nzValue="1 second" nzLabel="Number"></nz-option>
-                                                <nz-option nzValue="1 second" nzLabel="Date"></nz-option>
-                                                <nz-option nzValue="1 second" nzLabel="Boolean"></nz-option>
-                                                <nz-option nzValue="1 second" nzLabel="Object"></nz-option>
-                                                <nz-option nzValue="1 second" nzLabel="Array"></nz-option>
+                                                <nz-option nzValue="string" nzLabel="String"></nz-option>
+                                                <nz-option nzValue="number" nzLabel="Number"></nz-option>
+                                                <nz-option nzValue="date" nzLabel="Date"></nz-option>
+                                                <nz-option nzValue="boolean" nzLabel="Boolean"></nz-option>
+                                                <nz-option nzValue="object" nzLabel="Object"></nz-option>
+                                                <nz-option nzValue="array" nzLabel="Array"></nz-option>
                                             </nz-select>
                                         </nz-form-control>
                                     </nz-form-item>
@@ -161,25 +184,24 @@
                     <div class="ml-5">
                         <nz-form-item>
                             <nz-form-control>
-                                <button (click)="add()" nz-button nzType="dashed" class="add-button" (click)="addField($event)">
+                                <button (click)="add()" nz-button nzType="dashed" type="button" class="add-button" (click)="addField($event)">
                                     <span nz-icon nzType="plus"></span>
                                     Add Property
                                 </button>
                             </nz-form-control>
                         </nz-form-item>
-
                     </div>
                 </div>
             </div>
         </mat-dialog-content>
         <div class="">
             <mat-dialog-actions align="end">
-                <button mat-dialog-close class="bg-gray-50 mr-5 focus:ring-gray-500 hover:bg-gray-400 group relative mb-10 flex justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2">
-            Cancel
-        </button>
-                <button type="submit" class="bg-primary-500 focus:ring-primary-500 hover:bg-primary-400 group relative mb-10 flex justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2">
-            Save API Settings
-        </button>
+                <button mat-dialog-close class="relative flex justify-center px-4 py-2 mb-10 mr-5 text-sm font-medium text-gray-800 border border-transparent rounded-md bg-gray-50 focus:ring-gray-500 hover:bg-gray-400 group focus:outline-none focus:ring-2 focus:ring-offset-2">
+                    Cancel
+                </button>
+                <button type="submit" class="relative flex justify-center px-4 py-2 mb-10 text-sm font-medium text-white border border-transparent rounded-md bg-primary-500 focus:ring-primary-500 hover:bg-primary-400 group focus:outline-none focus:ring-2 focus:ring-offset-2">
+                    Save API Settings
+                </button>
             </mat-dialog-actions>
         </div>
     </form>

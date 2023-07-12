@@ -5,19 +5,19 @@ import { WorkflowPageComponent } from './pages/workflow/workflow.component';
 import { WorkflowComponent } from './workflow.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: WorkflowComponent,
-    children: [
-      { path: '', redirectTo: 'workflow', pathMatch: 'full' },
-      { path: 'workflow', component: WorkflowPageComponent },
-      { path: '**', redirectTo: 'error/404' },
-    ],
-  },
+	{
+		path: '',
+		component: WorkflowComponent,
+		children: [
+			{ path: ':id', component: WorkflowPageComponent },
+			{ path: '', component: WorkflowPageComponent },
+			{ path: '**', redirectTo: 'error/404' },
+		],
+	},
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+	imports: [RouterModule.forChild(routes)],
+	exports: [RouterModule],
 })
 export class WorkflowRoutingModule {}

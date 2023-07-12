@@ -1,14 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
-import { Survey } from '../../../models/survey';
+import { Component, Input, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
 
 @Component({
-	selector: '[surveys-table-item]',
-	templateUrl: './surveys-table-item.component.html',
+	selector: '[list-table-item]',
+	templateUrl: './list-table-item.component.html',
 })
-export class SurveysTableItemComponent implements OnInit {
-	@Input() dataRow = <Survey>{};
+export class ListTableItemComponent implements OnInit {
+	@Input() dataRow = <any>{}
 	/*
 	 **-------------------------------------------------------------------------------------
 	 ** METHOD NAME - constructor
@@ -27,6 +25,6 @@ export class SurveysTableItemComponent implements OnInit {
 	 **-------------------------------------------------------------------------------------
 	 */
 	public navigate(id): void {
-		this.router.navigateByUrl(`/secure/workflow/${id}`);
+		this.router.navigateByUrl(`/secure/workflow/${id}`)
 	}
 }

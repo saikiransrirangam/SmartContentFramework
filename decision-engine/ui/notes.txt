@@ -1,0 +1,68 @@
+* time series for the customer data
+* interactions 
+
+
+Timescheduled work flow
+- Once Ever Hour
+- Leads
+
+
+Action - 
+Configure Advertiser
+-- Contract for API
+
+
+Configure Buyer 
+-- One or many APIs
+-- Translates to contract 
+-- multiple apis 
+-- Contract Names and price for revenue
+
+
+
+-- Groups of buyers 
+- auto buyers
+- Insurance Buyrs 
+
+
+-- Define updates on groups
+-- Define rules 
+
+
+Based on response accept/reject (unsold)
+
+
+
+
+* time series for the customer data
+* interactions 
+
+
+Timescheduled work flow
+- Once Ever Hour
+- Leads
+
+
+Action - 
+Configure Advertiser
+-- Contract for API
+
+
+Configure Buyer 
+-- One or many APIs
+-- Translates to contract 
+-- multiple apis 
+-- Contract Names and price for revenue
+
+
+
+-- Groups of buyers 
+- auto buyers
+- Insurance Buyrs 
+
+
+-- Define updates on groups
+-- Define rules 
+
+
+Based on response accept/reject (unsold)

@@ -1,48 +1,47 @@
-<div class="p-4 relative h-full">
+<div class="relative h-full p-4">
     <h2 mat-dialog-title>
         <span>{{ form.get('conditionName').value }} Condition</span>
     </h2>
     <mat-dialog-content class="mat-typography">
-        <form [formGroup]="form" autocomplete="off">
+        <form [formGroup]="form" autocomplete="off" nz-form nzLayout="vertical" (ngSubmit)="onSave()">
             <div class="mb-20">
                 <section class="my-5">
                     <div>
-                        <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Condition Identifier</label>
-                        <div class="mt-2">
-                            <input formControlName="conditionName" type="text" name="conditionName" id="conditionName" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                        </div>
+                        <nz-form-item>
+                            <nz-form-label nzFor="email">Condition Identifier</nz-form-label>
+                            <nz-form-control nzErrorTip="API Webhook is required">
+                                <nz-input-group>
+                                    <input formControlName="conditionName" type="text" nz-input />
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
+
                     </div>
                 </section>
                 <ng-container formArrayName="conditions">
                     <section class="my-5" *ngFor="let conditionsForm of conditions.controls; let i = index">
                         <div class="flex items-center gap-x-2" [formGroupName]="i">
-
                             <div>
                                 <label for="email" class="block text-sm font-medium leading-6 text-gray-900">
-                                <span class="border-b" *ngIf="i > 0">{{conditionsFormGroups[i-1].get('action').value}}</span> When Data attribute
+                                <span style="min-width: 20px;" class="capitalize border-b bg-yellow-100 py-1.5 px-1 inline-block text-center" *ngIf="i > 0">{{conditionsFormGroups[i-1].get('action').value}}</span> When Data attribute
                             </label>
                             </div>
                             <div>
                                 <select formControlName="dataAttribute" id="dataAttribute" name="dataAttribute" class="block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                            <option>Select Data Attribute</option>
-                            <option>First Name</option>
-                            <option>Last Name</option>
-                            <option>Age</option>
-                            <option>Email</option>
-                            <option>Phone Number</option>
-                            <option>Address</option>
-                            <option>Interested in Car Buying</option>
-                            <option>Interested in Home Buying</option>
-                        </select>
+                                    <option>Select Data Attribute</option>
+                                    <option class="capitalize" [value]="item.propertyName" *ngFor="let item of dataFieldOptions">{{item.propertyName | titlecase}}</option>
+                                </select>
                             </div>
                             <div>
                                 <select formControlName="operator" id="operator" name="operator" class="block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                            <option>Select Operator</option>
-                            <option>is equal to</option>
-                            <option>contains</option>
-                            <option>does not equal</option>
-                            <option>Is Between</option>
-                        </select>
+                                    <option>Select Operator</option>
+                                    <option value="equal">is equal to</option>
+                                    <option value="contains">contains</option>
+                                    <option value="notEqual">does not equal</option>
+                                    <option value="greaterThan">Greater Than</option>
+                                    <option value="lessThan">Less Than</option>
+                                    <option value="between" *ngIf="['number', 'date'].includes(conditionsForm.get('dataAttribute').value)">Is Between</option>
+                                </select>
                             </div>
                             <div>
                                 <input formControlName="value" type="text" name="value" id="value" placeholder="enter value" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
@@ -52,29 +51,30 @@
                             </div>
                             <div>
                                 <select (change)="action($event)" formControlName="action" id="action" name="action" class="block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                            <option selected>Select Action</option>
-                            <option>And</option>
-                            <option>Or</option>
-                            <option value="action">Perform Api Call</option>
-                        </select>
+                                    <option selected>Select Action</option>
+                                    <option value="and">And</option>
+                                    <option value="or">Or</option>
+                                    <option value="action">Perform Api Call</option>
+                                </select>
+                            </div>
+                            <div *ngIf="i > 0">
+                                <button (click)="remove(i)" type="button" class="px-2 py-1 text-xs font-semibold text-white bg-red-500 rounded shadow-sm ring-1 ring-inset ring-red-300 hover:bg-red-700">Remove</button>
                             </div>
                         </div>
                     </section>
                 </ng-container>
                 <nz-alert *ngIf="showMessage" class="my-5" nzType="info" nzMessage="Please save your conditions to enter next action"></nz-alert>
-
             </div>
         </form>
     </mat-dialog-content>
     <div class="absolute bottom-0 right-5">
-
         <mat-dialog-actions align="end">
-            <button mat-dialog-close class="bg-gray-50 mr-5 focus:ring-gray-500 hover:bg-gray-400 group relative mb-10 flex justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2">
-            Cancel
-        </button>
-            <button (click)="onSave()" class="bg-primary-500 focus:ring-primary-500 hover:bg-primary-400 group relative mb-10 flex justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2">
-            Save
-        </button>
+            <button mat-dialog-close class="relative flex justify-center px-4 py-2 mb-10 mr-5 text-sm font-medium text-gray-800 border border-transparent rounded-md bg-gray-50 focus:ring-gray-500 hover:bg-gray-400 group focus:outline-none focus:ring-2 focus:ring-offset-2">
+                Cancel
+            </button>
+            <button (click)="onSave()" class="relative flex justify-center px-4 py-2 mb-10 text-sm font-medium text-white border border-transparent rounded-md bg-primary-500 focus:ring-primary-500 hover:bg-primary-400 group focus:outline-none focus:ring-2 focus:ring-offset-2">
+                Save
+            </button>
         </mat-dialog-actions>
     </div>
 </div>

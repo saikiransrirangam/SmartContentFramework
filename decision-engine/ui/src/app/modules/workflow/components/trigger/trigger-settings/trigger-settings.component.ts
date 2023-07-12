@@ -71,7 +71,11 @@ export class TriggerSettingsComponent implements OnInit {
 	onSave() {
 		if (this.form.valid) {
 			this.dialogref.close({
-				...this.form.value,
+				data: {
+					...this.form.value,
+					createTime: new Date().getTime(),
+				},
+				success: true,
 			});
 		} else {
 			Object.values(this.form.controls).forEach(control => {
@@ -92,8 +96,8 @@ export class TriggerSettingsComponent implements OnInit {
 	public add(values: any = {}) {
 		this.responseModel.push(
 			this.fb.group({
-				dataType: ['', []],
-				propertyName: ['', []],
+				dataType: [values.dataType, []],
+				propertyName: [values.propertyName, []],
 			})
 		);
 	}

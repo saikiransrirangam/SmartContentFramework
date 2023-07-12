@@ -1,17 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
-import { Survey } from '../../../models/survey';
+import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
 
 @Component({
-	selector: '[surveys-table]',
-	templateUrl: './surveys-table.component.html',
+	selector: '[list-table]',
+	templateUrl: './list-table.component.html',
 })
-export class SurveysTableComponent implements OnInit {
-	public tableItems: Survey[] = [
+export class ListTableComponent implements OnInit {
+	public tableItems: any[] = [
 		{
 			id: 1,
-			title: 'Email touchpoint',
+			title: 'Advertiser 1',
 			description: 'Email workflow based off campaign from super bowl',
 			questionTotal: 3,
 			submissonTotal: 0,
@@ -19,7 +17,7 @@ export class SurveysTableComponent implements OnInit {
 		},
 		{
 			id: 3,
-			title: 'Housing Market',
+			title: 'Advertiser 2',
 			description: 'Hosuing loan decisions',
 			questionTotal: 3,
 			submissonTotal: 0,
@@ -27,7 +25,7 @@ export class SurveysTableComponent implements OnInit {
 		},
 		{
 			id: 2,
-			title: 'SMS touchpoint',
+			title: 'Advertiser 3',
 			description: 'Email workflow based off campaign from super bowl',
 			questionTotal: 3,
 			submissonTotal: 0,
@@ -35,13 +33,13 @@ export class SurveysTableComponent implements OnInit {
 		},
 		{
 			id: 4,
-			title: 'Car Loans',
+			title: 'Advertiser 4',
 			description: 'SMS loan decisions',
 			questionTotal: 3,
 			submissonTotal: 0,
 			active: true,
 		},
-	];
+	]
 	/*
 	 **-------------------------------------------------------------------------------------
 	 ** METHOD NAME -  constructor
@@ -60,6 +58,6 @@ export class SurveysTableComponent implements OnInit {
 	 **-------------------------------------------------------------------------------------
 	 */
 	public navigate(): void {
-		this.router.navigateByUrl(`/secure/workflow`);
+		this.router.navigateByUrl(`/secure/workflow`)
 	}
 }

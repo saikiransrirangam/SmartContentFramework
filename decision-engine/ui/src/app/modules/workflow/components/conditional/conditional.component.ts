@@ -5,16 +5,15 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { WorkflowActionComponent } from '../actions/action.component';
 import {
-	ConfigData,
-	EditConditionalComponent,
+    ConfigData, EditConditionalComponent
 } from './edit-conditional/edit-conditional.component';
 
 export type StandardStepData = {
-	name: string;
-	icon: string;
-	color: string;
-	config: Array<ConfigData>;
-};
+	name: string
+	icon: string
+	color: string
+	config: Array<ConfigData>
+}
 
 @Component({
 	selector: 'workflow-conditional-step',
@@ -22,16 +21,16 @@ export type StandardStepData = {
 	styleUrls: ['./conditional.component.scss'],
 })
 export class ConditionalComponent extends NgFlowchartStepComponent {
-	name: string;
-	formData: any = {};
-	isDirty: boolean = false;
+	name: string
+	formData: any = {}
+	isDirty: boolean = false
 	/*
 	 **-------------------------------------------------------------------------------------
 	 ** METHOD NAME - constructor
 	 **-------------------------------------------------------------------------------------
 	 */
 	constructor(private matdialog: MatDialog) {
-		super();
+		super()
 	}
 	/*
 	 **-------------------------------------------------------------------------------------
@@ -39,8 +38,10 @@ export class ConditionalComponent extends NgFlowchartStepComponent {
 	 **-------------------------------------------------------------------------------------
 	 */
 	override ngOnInit(): void {
-		this.name = this.data.name;
-		this.formData.conditionName = this.name;
+		this.name = this.data.conditionName
+		this.formData.conditionName = this.name
+		this.formData.conditions = this.data.conditions
+		if (this.name) this.isDirty = true
 	}
 	/*
 	 **-------------------------------------------------------------------------------------
@@ -48,7 +49,7 @@ export class ConditionalComponent extends NgFlowchartStepComponent {
 	 **-------------------------------------------------------------------------------------
 	 */
 	onDelete() {
-		this.destroy(false);
+		this.destroy(false)
 	}
 	/*
 	 **-------------------------------------------------------------------------------------
@@ -56,7 +57,7 @@ export class ConditionalComponent extends NgFlowchartStepComponent {
 	 **-------------------------------------------------------------------------------------
 	 */
 	override getDropPositionsForStep(): NgFlowchart.DropPosition[] {
-		return ['RIGHT'];
+		return ['RIGHT']
 	}
 	/*
 	 **-------------------------------------------------------------------------------------
@@ -65,35 +66,36 @@ export class ConditionalComponent extends NgFlowchartStepComponent {
 	 */
 	onEdit() {
 		const dialogRef = this.matdialog.open(EditConditionalComponent, {
-			data: this.formData,
-
-			width: '100vw',
-			minHeight: '25vh',
-		});
+			data: {
+				form: this.formData,
+				params: this.canvas.flow.rootStep.data,
+			},
+			panelClass: 'fullscreen-dialog',
+		})
 		let sub = dialogRef.beforeClosed().subscribe(data => {
 			if (data) {
-				this.formData = data;
-				this.name = data.conditionName;
-				this.data = data;
-				this.data.conditionName = data.conditionName;
-			}
-			if (!this.isDirty) {
-				this.addChild(
-					{
-						template: WorkflowActionComponent,
-						type: 'action',
-						data: {
-							rules: [...this.formData.conditions],
+				this.formData = data
+				this.name = data.conditionName
+				this.data = data
+				this.data.conditionName = data.conditionName
+				if (!this.isDirty) {
+					this.addChild(
+						{
+							template: WorkflowActionComponent,
+							type: 'action',
+							data: {
+								rules: [...this.formData.conditions],
+							},
 						},
-					},
-					{
-						sibling: true,
-					}
-				);
+						{
+							sibling: true,
+						}
+					)
+				}
+				this.isDirty = true
 			}
 
-			this.isDirty = true;
-			sub.unsubscribe();
-		});
+			sub.unsubscribe()
+		})
 	}
 }

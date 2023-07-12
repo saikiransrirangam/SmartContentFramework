@@ -1,4 +1,4 @@
-<div #canvasContent class="step w-48">
+<div #canvasContent class="w-24 step">
     <div class="header">
         <span class="w-full text-sm">API Webhook Trigger</span>
         <button mat-icon-button [matMenuTriggerFor]="menu">
@@ -13,20 +13,19 @@
           <span>Add Condition</span>
         </button>
     </mat-menu>
-    <div class="content">
+    <div class="w-full whitespace-pre-wrap content">
         <div *ngIf="!actionsDisabled">
-            <div class="grid grid-cols-2 gap-x-4 gap-y-2 my-5">
+            <div class="grid grid-cols-1 my-5 gap-x-4 gap-y-2">
                 <div class="border-b">
                     Action
                 </div>
+                <div class="text-xs font-semibold uppercase">{{data.webhookMethod}}</div>
                 <div class="border-b">
                     URL
                 </div>
-                <div class="text-xs uppercase">{{data.webhookMethod}}</div>
-                <div class="text-xs whitespace-nowrap">{{data.webhookUrl}}</div>
+                <div class="text-xs font-semibold whitespace-nowrap">{{data.webhookUrl}}</div>
             </div>
         </div>
-        <nz-alert *ngIf="actionsDisabled" class="my-5" nzType="info" nzMessage="Please configure your API Webhook before adding workflow criteria"></nz-alert>
-
+        <nz-alert *ngIf="actionsDisabled" class="my-5 text-sm text-center whitespace-pre-wrap" nzType="info" nzMessage="Please configure your API Webhook before adding workflow criteria"></nz-alert>
     </div>
 </div>

@@ -26,6 +26,7 @@ export class EditConditionalComponent implements OnInit {
 		return this.conditions.controls as FormGroup[];
 	}
 	showMessage = false;
+	dataFieldOptions: any[];
 	/*
 	 **-------------------------------------------------------------------------------------
 	 ** METHOD NAME - constructor
@@ -43,17 +44,22 @@ export class EditConditionalComponent implements OnInit {
 	 **-------------------------------------------------------------------------------------
 	 */
 	ngOnInit(): void {
+		this.dataFieldOptions = this.data.params.responseModel;
 		this.form = this.fb.group({
-			conditionName: [this.data.conditionName],
+			conditionName: [this.data.form.conditionName],
 			conditions: new FormArray([]),
 		});
-		if (this.data?.conditions?.length) {
-			this.data.conditions.forEach(e => {
+		console.log(this.data.form.conditions);
+		if (this.data?.form.conditions?.length) {
+			this.data.form.conditions.forEach(e => {
 				this.add(e);
 			});
 		} else {
 			this.add();
 		}
+		this.form.get('conditions').valueChanges.subscribe(resp => {
+			console.log(resp);
+		});
 	}
 	/*
 	 **-------------------------------------------------------------------------------------
@@ -92,5 +98,13 @@ export class EditConditionalComponent implements OnInit {
 			return;
 		}
 		this.add();
+	}
+	/*
+	 **-------------------------------------------------------------------------------------
+	 ** METHOD NAME - remove
+	 **-------------------------------------------------------------------------------------
+	 */
+	public remove(idx) {
+		this.conditions.removeAt(idx);
 	}
 }
