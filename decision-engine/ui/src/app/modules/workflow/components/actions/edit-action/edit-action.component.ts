@@ -1,13 +1,15 @@
+import { BUYER_GROUPS } from 'src/app/shared/database/buyer-groups';
+
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 export type ConfigData = {
-	name: string;
-	description?: string;
-	type: 'text' | 'number' | 'checkbox';
-	value?: any;
-};
+	name: string
+	description?: string
+	type: 'text' | 'number' | 'checkbox'
+	value?: any
+}
 
 @Component({
 	selector: 'app-edit-action',
@@ -15,7 +17,10 @@ export type ConfigData = {
 	styleUrls: ['./edit-action.component.scss'],
 })
 export class EditActionComponent implements OnInit {
-	public form: FormGroup;
+	public form: FormGroup
+	public buyerGroups: any[] = BUYER_GROUPS
+	public limit = new Array(10).fill(0).map((x, i) => `Limit Top ${i + 1}`)
+
 	/*
 	 **-------------------------------------------------------------------------------------
 	 ** METHOD NAME - constructor
@@ -34,9 +39,10 @@ export class EditActionComponent implements OnInit {
 	 */
 	ngOnInit(): void {
 		this.form = this.fb.group({
-			method: [],
-			endpoint: [],
-		});
+			name: [this.data.name],
+			buyerGroups: [this.data.groups],
+			limit: [this.data.limit],
+		})
 	}
 	/*
 	 **-------------------------------------------------------------------------------------
@@ -46,6 +52,6 @@ export class EditActionComponent implements OnInit {
 	onSave() {
 		this.dialogref.close({
 			...this.form.value,
-		});
+		})
 	}
 }

@@ -1,34 +1,40 @@
 <div class="relative h-full p-4">
     <h2 mat-dialog-title>
-        <span>API Action Event</span>
+        <span>{{form.get('name').value}}Action Event</span>
     </h2>
     <mat-dialog-content class="mat-typography ">
-        <form [formGroup]="form" autocomplete="off" class="mb-10">
+        <form [formGroup]="form" autocomplete="off" nz-form nzLayout="vertical" (ngSubmit)="onSave()">
             <section class="my-5 mb-20">
                 <div class="my-5">
-                    <label for="email" class="block text-sm font-medium leading-6 text-gray-900">HTTP Method</label>
-                    <div>
-                        <select formControlName="method" id="dataAttribute" name="dataAttribute" class="block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                            <option>GET</option>
-                            <option>POST</option>
-                        </select>
-                    </div>
+                    <nz-form-item>
+                        <nz-form-label nzFor="email">Action Name</nz-form-label>
+                        <nz-form-control nzErrorTip="Action name is required">
+                            <nz-input-group>
+                                <input formControlName="name" type="text" nz-input />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
                 </div>
                 <div class="my-5">
-                    <label for="email" class="block text-sm font-medium leading-6 text-gray-900">HTTP Endpint</label>
-                    <div>
-                        <input formControlName="endpoint" type="text" name="conditionName" id="conditionName" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                    </div>
+                    <nz-form-item>
+                        <nz-form-label nzFor="email">Assign Buyer Group</nz-form-label>
+                        <nz-form-control nzErrorTip="API Webhook is required">
+                            <nz-select formControlName="buyerGroups" class="w-full" [nzMaxTagCount]="3" [nzMaxTagPlaceholder]="tagPlaceHolder" nzMode="multiple" nzPlaceHolder="Please select">
+                                <nz-option *ngFor="let item of buyerGroups" [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+                            </nz-select>
+                            <ng-template #tagPlaceHolder let-selectedList>and {{ selectedList.length }} more selected</ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
                 </div>
-                <div>
-                    <label for="comment" class="block text-sm font-medium leading-6 text-gray-900">JSON Input</label>
-                    <div class="mt-2">
-                        <textarea rows="4" name="comment" id="comment" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-{
-    "firstName": "$firstName"
-}
-                        </textarea>
-                    </div>
+                <div class="my-5">
+                    <nz-form-item>
+                        <nz-form-label nzFor="email">Buyer Limit</nz-form-label>
+                        <nz-form-control nzErrorTip="API Webhook is required">
+                            <nz-select formControlName="limit" class="w-full" nzPlaceHolder="Please select">
+                                <nz-option *ngFor="let item of limit" [nzValue]="item" [nzLabel]="item"></nz-option>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
                 </div>
             </section>
         </form>
@@ -40,7 +46,7 @@
             Cancel
         </button>
             <button (click)="onSave()" class="relative flex justify-center px-4 py-2 mb-10 text-sm font-medium text-white border border-transparent rounded-md bg-primary-500 focus:ring-primary-500 hover:bg-primary-400 group focus:outline-none focus:ring-2 focus:ring-offset-2">
-            Save
+            Save {{form.get('name').value}}
         </button>
         </mat-dialog-actions>
     </div>

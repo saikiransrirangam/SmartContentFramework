@@ -1,18 +1,18 @@
 <div #canvasContent class="w-24 step">
     <div class="header">
-        <span class="w-full text-sm">Action API Call</span>
+        <span class="w-full text-sm capitalize">{{data.name}} Action</span>
         <button mat-icon-button [matMenuTriggerFor]="menu">
           <mat-icon>more_vert</mat-icon>
       </button>
     </div>
     <mat-menu #menu="matMenu">
-        <button (click)="onSettingsModalTrigger()" mat-menu-item>
-          <span>Update API Settings</span>
+        <button (click)="onEdit()" mat-menu-item>
+          <span>Update Action</span>
         </button>
-        <button [disabled]="actionsDisabled" (click)="onEdit()" mat-menu-item>
+        <button [disabled]="actionsDisabled" (click)="addCondition()" mat-menu-item>
           <span>Add Condition</span>
         </button>
-        <button [disabled]="actionsDisabled" (click)="onEdit()" mat-menu-item>
+        <button [disabled]="actionsDisabled" (click)="endTraunch()" mat-menu-item>
           <span>End Traunch</span>
         </button>
     </mat-menu>
@@ -20,13 +20,10 @@
         <div *ngIf="!actionsDisabled">
             <div class="grid grid-cols-1 my-5 gap-x-4 gap-y-2">
                 <div class="border-b">
-                    Action
+                    Attached Buyer Groups
                 </div>
-                <div class="text-xs font-semibold uppercase">{{this.data.webhookMethod}}</div>
-                <div class="border-b">
-                    URL
-                </div>
-                <div class="text-xs font-semibold whitespace-nowrap">{{this.data.webhookUrl}}</div>
+                <div class="text-xs font-medium mt-1.5 capitalize">{{this.groups}}</div>
+
             </div>
         </div>
         <nz-alert *ngIf="actionsDisabled" class="my-5 whitespace-pre-wrap" nzType="info" nzMessage="Please configure your API Webhook before adding workflow criteria"></nz-alert>

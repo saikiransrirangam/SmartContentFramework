@@ -66,3 +66,47 @@ Configure Buyer
 
 
 Based on response accept/reject (unsold)
+
+
+Adv
+Advertister Fields 
+Contract field | price per lead per api 
+can have more or more APIs 
+
+
+Buyer Group 
+- Priority field based on dollar amount Higher dollar amount
+- Priority override like put at top 
+
+Choose Group and set limit in the workflow it self 
+
+
+Api tester in UI test buyer api 
+
+
+
+-------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -17,17 +17,17 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+import { BuyersRoutingModule } from './buyers-routing.module';
+import { BuyersComponent } from './buyers.component';
 import { components, secondaryComponents } from './components';
-import { WorkflowPageComponent } from './pages/workflow/workflow.component';
-import { WorkflowRoutingModule } from './workflow-routing.module';
-import { WorkflowComponent } from './workflow.component';
+import { pages } from './pages';
 
 @NgModule({
-	declarations: [WorkflowComponent, WorkflowPageComponent, ...components, ...secondaryComponents],
+	declarations: [BuyersComponent, ...components, ...secondaryComponents, ...pages],
 	imports: [
 		NgFlowchartModule,
 		CommonModule,
-		WorkflowRoutingModule,
+		BuyersRoutingModule,
 		SharedModule,
 		HttpClientModule,
 		AngularSvgIconModule.forRoot(),
@@ -47,4 +47,4 @@ import { WorkflowComponent } from './workflow.component';
 		MatFormFieldModule,
 	],
 })
-export class WorkflowModule {}
+export class BuyersModule {}

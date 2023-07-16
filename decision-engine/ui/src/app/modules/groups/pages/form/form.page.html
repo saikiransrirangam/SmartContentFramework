@@ -1,0 +1,72 @@
+<div class="px-4 py-4 mx-auto sm:px-8">
+    <app-page-header breadcrumbs="Dashboard / Buyer Groups / {{form.get('name').value}}" [pageTitle]="form.get('name').value"></app-page-header>
+    <div class="flex-col px-8 py-8 bg-white rounded-lg dark:bg-night-700 sm:flex-row">
+
+        <form [formGroup]="form" autocomplete="off" nz-form nzLayout="vertical" (ngSubmit)="onSave()">
+            <div class="grid items-center grid-cols-2 py-5 mb-5 divide-x-2 gap-x-5">
+                <div>
+                    <p class="text-base font-medium">Group Name</p>
+                    <p class="text-sm">The name of the Group.</p>
+                </div>
+                <div>
+                    <div class="p-4 mb-5 ml-5 rounded-md">
+                        <nz-form-item>
+                            <nz-form-label nzFor="email">Name of group</nz-form-label>
+                            <nz-form-control nzErrorTip="API Webhook is required">
+                                <nz-input-group>
+                                    <input formControlName="name" type="text" nz-input />
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+            </div>
+            <div class="grid items-start grid-cols-2 py-5 mb-5 divide-x-2 gap-x-5">
+                <div>
+                    <p class="text-base font-medium">Attach Buyers</p>
+                    <p class="text-sm">Attach Buyers.</p>
+                </div>
+                <div>
+                    <div class="p-4 mb-5 ml-5 rounded-md">
+                        <nz-form-item>
+                            <nz-form-label nzFor="email">Buyer Group</nz-form-label>
+                            <nz-form-control nzErrorTip="API Webhook is required">
+                                <nz-select formControlName="buyers" class="w-full" [nzMaxTagCount]="3" [nzMaxTagPlaceholder]="tagPlaceHolder" nzMode="multiple" nzPlaceHolder="Please select">
+                                    <nz-option *ngFor="let item of buyers" [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+                                </nz-select>
+                                <ng-template #tagPlaceHolder let-selectedList>and {{ selectedList.length }} more selected</ng-template>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+            </div>
+            <div class="grid items-center grid-cols-2 py-5 mb-5 divide-x-2 gap-x-5">
+                <div>
+                    <p class="text-base font-medium">Buyer Priority</p>
+                    <p class="text-sm"></p>
+                </div>
+                <div>
+                    <div class="p-4 mb-5 ml-5 rounded-md">
+                        <nz-form-item>
+                            <nz-form-label nzFor="email">Buyer Priority</nz-form-label>
+                            <nz-form-control nzErrorTip="API Webhook is required">
+                                <nz-select formControlName="buyers" class="w-full" nzPlaceHolder="Please select">
+                                    <nz-option *ngFor="let item of priorities" [nzValue]="item" [nzLabel]="item"></nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-end">
+                <button (click)="cancel()" class="relative flex justify-center px-4 py-2 mb-10 mr-5 text-sm font-medium text-gray-800 border border-transparent rounded-md bg-gray-50 focus:ring-gray-500 hover:bg-gray-400 group focus:outline-none focus:ring-2 focus:ring-offset-2">
+					Cancel
+				</button>
+                <button (click)="cancel()" class="relative flex justify-center px-4 py-2 mb-10 text-sm font-medium text-white border border-transparent rounded-md bg-primary-500 focus:ring-primary-500 hover:bg-primary-400 group focus:outline-none focus:ring-2 focus:ring-offset-2">
+					Save {{form.get('name').value}}
+				</button>
+            </div>
+        </form>
+    </div>
+</div>

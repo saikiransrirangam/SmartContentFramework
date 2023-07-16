@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core'
-import { RouterModule, Routes } from '@angular/router'
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
-import { LayoutComponent } from './layout.component'
+import { LayoutComponent } from './layout.component';
 
 const routes: Routes = [
 	{
@@ -15,10 +15,14 @@ const routes: Routes = [
 		loadChildren: () => import('../workflow/workflow.module').then(m => m.WorkflowModule),
 	},
 	{
-		path: 'advertisers',
+		path: 'buyers',
 		component: LayoutComponent,
-		loadChildren: () =>
-			import('../advertisers/advertisers.module').then(m => m.AdvertisersModule),
+		loadChildren: () => import('../buyers/buyers.module').then(m => m.BuyersModule),
+	},
+	{
+		path: 'groups',
+		component: LayoutComponent,
+		loadChildren: () => import('../groups/groups.module').then(m => m.GroupsModule),
 	},
 	{ path: '', redirectTo: 'dashboard', pathMatch: 'full' },
 	{ path: '**', redirectTo: 'error/404' },

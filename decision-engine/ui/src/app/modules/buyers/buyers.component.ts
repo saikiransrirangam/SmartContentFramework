@@ -1,16 +1,19 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit } from '@angular/core';
+
+import { MenuService } from '../layout/services/menu.service';
 
 @Component({
-	selector: 'page-advertisers-list',
-	templateUrl: './list.component.html',
+	selector: 'app-buyers',
+	templateUrl: './buyers.component.html',
+	styleUrls: ['./buyers.scss'],
 })
-export class ListPage implements OnInit {
+export class BuyersComponent implements OnInit {
 	/*
 	 **-------------------------------------------------------------------------------------
 	 ** METHOD NAME - constructor
 	 **-------------------------------------------------------------------------------------
 	 */
-	constructor() {}
+	constructor(private readonly menuService: MenuService) {}
 	/*
 	 **-------------------------------------------------------------------------------------
 	 ** METHOD NAME - ngOnInit

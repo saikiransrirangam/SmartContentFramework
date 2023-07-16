@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core'
-import { Router } from '@angular/router'
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: '[list-table-item]',
@@ -25,6 +25,6 @@ export class ListTableItemComponent implements OnInit {
 	 **-------------------------------------------------------------------------------------
 	 */
 	public navigate(id): void {
-		this.router.navigateByUrl(`/secure/workflow/${id}`)
+		this.router.navigateByUrl(`/secure/buyers/form/${id}`)
 	}
 }

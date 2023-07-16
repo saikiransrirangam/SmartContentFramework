@@ -17,17 +17,17 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatTooltipModule } from '@angular/material/tooltip'
 
-import { AdvertisersRoutingModule } from './advertisers-routing.module'
-import { AdvertisersComponent } from './advertisers.component'
 import { components, secondaryComponents } from './components'
+import { GroupsRoutingModule } from './groups-routing.module'
+import { GroupsComponent } from './groups.component'
 import { pages } from './pages'
 
 @NgModule({
-	declarations: [AdvertisersComponent, ...components, ...secondaryComponents, ...pages],
+	declarations: [GroupsComponent, ...components, ...secondaryComponents, ...pages],
 	imports: [
 		NgFlowchartModule,
 		CommonModule,
-		AdvertisersRoutingModule,
+		GroupsRoutingModule,
 		SharedModule,
 		HttpClientModule,
 		AngularSvgIconModule.forRoot(),
@@ -47,4 +47,4 @@ import { pages } from './pages'
 		MatFormFieldModule,
 	],
 })
-export class AdvertisersModule {}
+export class GroupsModule {}

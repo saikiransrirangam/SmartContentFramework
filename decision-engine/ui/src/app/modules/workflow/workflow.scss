@@ -31,4 +31,10 @@
             bottom: 10px;
         }
     }
+    .ant-select-dropdown {
+        z-index: 999 !important;
+    }
+    .cdk-overlay-pane {
+        z-index: 9999 !important;
+    }
 }

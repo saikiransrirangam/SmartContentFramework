@@ -1,4 +1,5 @@
 import { NgFlowchart, NgFlowchartStepComponent } from 'src/app/shared/components/flowchart';
+import { BUYER_GROUPS } from 'src/app/shared/database/buyer-groups';
 
 import { Component } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
@@ -26,6 +27,7 @@ export class WorkflowActionComponent extends NgFlowchartStepComponent {
 	action: string = ''
 	endpoint: string = ''
 	public actionsDisabled: boolean = true
+	public groups: string = ''
 
 	/*
 	 **-------------------------------------------------------------------------------------
@@ -45,8 +47,11 @@ export class WorkflowActionComponent extends NgFlowchartStepComponent {
 			this.isDirty = true
 			this.actionsDisabled = false
 			this.data.showJSONInput = true
+			this.formData = this.data
+			this.groups = BUYER_GROUPS.filter(e => this.data.groups.includes(e.id))
+				.map(e => e.name)
+				.join(', ')
 		}
-		//if(this.)
 	}
 	/*
 	 **-------------------------------------------------------------------------------------
@@ -95,7 +100,6 @@ export class WorkflowActionComponent extends NgFlowchartStepComponent {
 	onEdit() {
 		const dialogRef = this.matdialog.open(EditActionComponent, {
 			data: this.formData,
-
 			width: '100vw',
 			minHeight: '25vh',
 		})
@@ -105,6 +109,10 @@ export class WorkflowActionComponent extends NgFlowchartStepComponent {
 				this.action = data.method
 				this.endpoint = data.endpoint
 				this.data = data
+				console.log(data)
+				this.groups = BUYER_GROUPS.filter(e => data.buyerGroups.includes(e.id))
+					.map(e => e.name)
+					.join(', ')
 			}
 
 			sub.unsubscribe()
@@ -128,4 +136,16 @@ export class WorkflowActionComponent extends NgFlowchartStepComponent {
 			sub.unsubscribe()
 		})
 	}
+	/*
+	 **-------------------------------------------------------------------------------------
+	 ** METHOD NAME - addCondition
+	 **-------------------------------------------------------------------------------------
+	 */
+	public addCondition() {}
+	/*
+	 **-------------------------------------------------------------------------------------
+	 ** METHOD NAME - endTraunch
+	 **-------------------------------------------------------------------------------------
+	 */
+	public endTraunch(): void {}
 }

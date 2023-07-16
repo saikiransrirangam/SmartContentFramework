@@ -1,6 +1,7 @@
 import {
     NgFlowchart, NgFlowchartCanvasDirective, NgFlowchartStepRegistry
 } from 'src/app/shared/components/flowchart';
+import { WORKFLOWS } from 'src/app/shared/database/workflows';
 
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,7 +10,6 @@ import {
     ConditionalComponent, WorkflowActionComponent, WorkflowTriggerComponent
 } from '../../components';
 import { WorkflowEndComponent } from '../../components/end/end.component';
-import { workflowsData } from '../../data';
 
 @Component({
 	selector: 'app-workflow',
@@ -57,7 +57,7 @@ export class WorkflowPageComponent implements OnInit {
 	public async ngAfterViewInit() {
 		this.ac.paramMap.subscribe(params => {
 			const id = params.get('id')
-			if (id) this.chart.getFlow().upload(workflowsData[params.get('id')])
+			if (id) this.chart.getFlow().upload(WORKFLOWS[params.get('id')])
 			else {
 				let id = new Date().getTime()
 
@@ -68,7 +68,7 @@ export class WorkflowPageComponent implements OnInit {
 						data: {},
 					},
 				}
-				workflowsData[id] = workflow
+				WORKFLOWS[id] = workflow
 				this.chart.getFlow().upload(workflow)
 			}
 		})
