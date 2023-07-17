@@ -24,7 +24,7 @@ export class NgFlowchartStepDirective implements AfterViewInit {
 	flowStep: NgFlowchart.PendingStep;
 
 	constructor(protected element: ElementRef<HTMLElement>, private data: DropDataService) {
-		this.element.nativeElement.setAttribute('draggable', 'true');
+		this.element.nativeElement.setAttribute('draggable', 'false');
 	}
 
 	ngAfterViewInit() {}

@@ -6,6 +6,34 @@
         <mat-dialog-content>
             <div class="grid grid-cols-2 py-5 mb-5 divide-x-2 gap-x-5">
                 <div>
+                    <p class="text-base font-medium">Workflow Name/Description</p>
+                    <p class="text-sm">Enter a name and description for this workflow.</p>
+                </div>
+                <div>
+                    <div class="p-4 mb-5 ml-5 rounded-md">
+                        <nz-form-item>
+                            <nz-form-label nzFor="email">Title</nz-form-label>
+                            <nz-form-control nzErrorTip="Title is required">
+                                <nz-input-group>
+                                    <input formControlName="title" type="text" nz-input />
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label nzFor="email">Description</nz-form-label>
+                            <nz-form-control nzErrorTip="Description is required">
+                                <nz-input-group>
+                                    <textarea rows="4" formControlName="description" id="description" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                    </textarea>
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 py-5 mb-5 divide-x-2 gap-x-5">
+                <div>
                     <p class="text-base font-medium">Webhook Trigger URL</p>
                     <p class="text-sm">Configure the target webhook api you want to enable. You'll find the advanced configuration below, in the advanced settings section.</p>
                 </div>

@@ -17,11 +17,11 @@ export class Menu {
 					route: '/secure/buyers',
 				},
 				{
-					icon: 'assets/icons/outline/eye.svg',
+					icon: 'assets/icons/outline/view-grid.svg',
 					label: 'Buyer Groups',
 					route: '/secure/groups',
 				},
 			],
 		},
-	]
+	];
 }

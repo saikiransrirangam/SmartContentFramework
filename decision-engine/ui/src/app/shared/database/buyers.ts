@@ -11,6 +11,9 @@ export const BUYERS = [
 		requestBody: null,
 		httpAuthUsername: 'bmarvell0',
 		httpAuthPassword: 'tS7@"|ggk)7i<',
+		buyerGroups: [2, 5],
+		contractPrice: '0.50',
+
 		responseModel: [
 			{
 				dataType: 'number',
@@ -66,6 +69,9 @@ export const BUYERS = [
 		requestBody: null,
 		httpAuthUsername: 'lwerndly1',
 		httpAuthPassword: 'rG1$k3D>0N?H.S.',
+		buyerGroups: [2, 5],
+		contractPrice: '0.50',
+
 		responseModel: [
 			{
 				dataType: 'boolean',
@@ -117,6 +123,9 @@ export const BUYERS = [
 		requestBody: null,
 		httpAuthUsername: 'framsell2',
 		httpAuthPassword: 'nL8(i)mS',
+		buyerGroups: [2, 5],
+		contractPrice: '0.50',
+
 		responseModel: [
 			{
 				dataType: 'number',
@@ -168,6 +177,9 @@ export const BUYERS = [
 		requestBody: null,
 		httpAuthUsername: 'llate3',
 		httpAuthPassword: 'rE8@M!u2SJSi',
+		buyerGroups: [2, 5],
+		contractPrice: '0.50',
+
 		responseModel: [
 			{
 				dataType: 'number',
@@ -191,6 +203,9 @@ export const BUYERS = [
 		requestBody: null,
 		httpAuthUsername: 'ktippett4',
 		httpAuthPassword: "bS5{k'@8Wf1)",
+		buyerGroups: [2, 5],
+		contractPrice: '0.50',
+
 		responseModel: [
 			{
 				dataType: 'string',
@@ -210,6 +225,9 @@ export const BUYERS = [
 		requestBody: null,
 		httpAuthUsername: 'aruddock5',
 		httpAuthPassword: 'mN8|S+W`dWN',
+		buyerGroups: [2, 5],
+		contractPrice: '0.50',
+
 		responseModel: [
 			{
 				dataType: 'date',
@@ -261,6 +279,9 @@ export const BUYERS = [
 		requestBody: null,
 		httpAuthUsername: 'jdoudny6',
 		httpAuthPassword: 'iO1*DZK7J',
+		buyerGroups: [2, 5],
+		contractPrice: '0.50',
+
 		responseModel: [
 			{
 				dataType: 'boolean',
@@ -292,6 +313,9 @@ export const BUYERS = [
 		requestBody: null,
 		httpAuthUsername: 'aadamiak7',
 		httpAuthPassword: 'wH0,W+IP+ya',
+		buyerGroups: [2, 5],
+		contractPrice: '0.50',
+
 		responseModel: [
 			{
 				dataType: 'number',
@@ -319,6 +343,9 @@ export const BUYERS = [
 		requestBody: null,
 		httpAuthUsername: 'rbreston8',
 		httpAuthPassword: 'dT8)"=Zj5wO',
+		buyerGroups: [2, 5],
+		contractPrice: '0.50',
+
 		responseModel: [
 			{
 				dataType: 'object',
@@ -362,6 +389,9 @@ export const BUYERS = [
 		requestBody: null,
 		httpAuthUsername: 'cpluthero9',
 		httpAuthPassword: 'mE1>,p1dkxpYm',
+		buyerGroups: [2, 5],
+		contractPrice: '0.50',
+
 		responseModel: [
 			{
 				dataType: 'number',
@@ -389,6 +419,8 @@ export const BUYERS = [
 		requestBody: null,
 		httpAuthUsername: 'odiggera',
 		httpAuthPassword: 'jC3}Pc`~',
+		contractPrice: '0.50',
+
 		responseModel: [
 			{
 				dataType: 'date',
@@ -408,6 +440,9 @@ export const BUYERS = [
 		requestBody: null,
 		httpAuthUsername: 'kgrabertb',
 		httpAuthPassword: "yM2'Kv2ScVl)o~A",
+		buyerGroups: [2, 5],
+		contractPrice: '0.50',
+
 		responseModel: [
 			{
 				dataType: 'boolean',
@@ -427,6 +462,9 @@ export const BUYERS = [
 		requestBody: null,
 		httpAuthUsername: 'jhadyec',
 		httpAuthPassword: 'iD8|qs<5D>Nmd3dX',
+		buyerGroups: [2, 5],
+		contractPrice: '0.50',
+
 		responseModel: [
 			{
 				dataType: 'date',
@@ -458,6 +496,9 @@ export const BUYERS = [
 		requestBody: null,
 		httpAuthUsername: 'usummerbelld',
 		httpAuthPassword: 'sC1%yl~6dT#l',
+		buyerGroups: [2, 5],
+		contractPrice: '0.50',
+
 		responseModel: [
 			{
 				dataType: 'number',
@@ -497,6 +538,8 @@ export const BUYERS = [
 		requestBody: null,
 		httpAuthUsername: 'iserfatie',
 		httpAuthPassword: "yK1`@O\\/TCs'I=g",
+		buyerGroups: [2, 5],
+		contractPrice: '0.50',
 		responseModel: [
 			{
 				dataType: 'object',
@@ -536,4 +579,4 @@ export const BUYERS = [
 			},
 		],
 	},
-]
+];

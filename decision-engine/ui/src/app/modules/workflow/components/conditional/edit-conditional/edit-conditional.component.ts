@@ -49,7 +49,6 @@ export class EditConditionalComponent implements OnInit {
 			conditionName: [this.data.form.conditionName],
 			conditions: new FormArray([]),
 		});
-		console.log(this.data.form.conditions);
 		if (this.data?.form.conditions?.length) {
 			this.data.form.conditions.forEach(e => {
 				this.add(e);

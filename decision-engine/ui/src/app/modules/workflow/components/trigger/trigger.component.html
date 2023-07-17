@@ -1,6 +1,6 @@
 <div #canvasContent class="w-24 step">
     <div class="header">
-        <span class="w-full text-sm">API Webhook Trigger</span>
+        <span class="capitalize w-full text-sm">{{ data?.title ? data.title : 'API Webhook' }} Trigger</span>
         <button mat-icon-button [matMenuTriggerFor]="menu">
           <mat-icon>more_vert</mat-icon>
       </button>

@@ -44,7 +44,10 @@ export class TriggerSettingsComponent implements OnInit {
 	 **-------------------------------------------------------------------------------------
 	 */
 	ngOnInit(): void {
+		console.log(this.data);
 		this.form = this.fb.group({
+			title: [this.data?.title, [Validators.required]],
+			description: [this.data?.description, [Validators.required]],
 			webhookUrl: [this.data?.webhookUrl, [Validators.required]],
 			webhookMethod: [this.data?.webhookMethod, [Validators.required]],
 			webhookTimeout: [this.data?.webhookTimeout, [Validators.required]],

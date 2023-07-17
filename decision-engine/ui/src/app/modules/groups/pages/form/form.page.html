@@ -29,7 +29,7 @@
                 <div>
                     <div class="p-4 mb-5 ml-5 rounded-md">
                         <nz-form-item>
-                            <nz-form-label nzFor="email">Buyer Group</nz-form-label>
+                            <nz-form-label nzFor="email">Buyers</nz-form-label>
                             <nz-form-control nzErrorTip="API Webhook is required">
                                 <nz-select formControlName="buyers" class="w-full" [nzMaxTagCount]="3" [nzMaxTagPlaceholder]="tagPlaceHolder" nzMode="multiple" nzPlaceHolder="Please select">
                                     <nz-option *ngFor="let item of buyers" [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
@@ -63,7 +63,7 @@
                 <button (click)="cancel()" class="relative flex justify-center px-4 py-2 mb-10 mr-5 text-sm font-medium text-gray-800 border border-transparent rounded-md bg-gray-50 focus:ring-gray-500 hover:bg-gray-400 group focus:outline-none focus:ring-2 focus:ring-offset-2">
 					Cancel
 				</button>
-                <button (click)="cancel()" class="relative flex justify-center px-4 py-2 mb-10 text-sm font-medium text-white border border-transparent rounded-md bg-primary-500 focus:ring-primary-500 hover:bg-primary-400 group focus:outline-none focus:ring-2 focus:ring-offset-2">
+                <button (click)="onSave()" class="relative flex justify-center px-4 py-2 mb-10 text-sm font-medium text-white border border-transparent rounded-md bg-primary-500 focus:ring-primary-500 hover:bg-primary-400 group focus:outline-none focus:ring-2 focus:ring-offset-2">
 					Save {{form.get('name').value}}
 				</button>
             </div>

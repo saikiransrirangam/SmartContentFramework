@@ -315,9 +315,9 @@ export class NgFlowchartCanvasService {
 			this.renderer.renderNonRoot(comp);
 			this.flow.addStep(comp.instance);
 		}
-
 		for (let i = 0; i < node.children.length; i++) {
 			let child = node.children[i];
+			if (!child) continue;
 			let childComp = await this.uploadNode(child, comp.instance);
 			comp.instance.children.push(childComp);
 			childComp.setParent(comp.instance, true);

@@ -1,5 +1,4 @@
-import { BUYER_GROUPS } from 'src/app/shared/database/buyer-groups';
-import { BUYERS } from 'src/app/shared/database/buyers';
+import { DataService } from 'src/app/shared/services/data.service';
 
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -10,19 +9,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 	templateUrl: './form.page.html',
 })
 export class FormPage implements OnInit {
-	public form: FormGroup
-	public data: any
-	public buyers: any[] = BUYERS
+	public form: FormGroup;
+	public data: any;
+	public buyers: any[] = this.dataService.get('buyers');
+	public buyerGroups: any[] = this.dataService.get('buyerGroups');
+	public isEdit: boolean = false;
 	get f() {
-		return this.form.controls
+		return this.form.controls;
 	}
 	get responseModel() {
-		return this.form.controls['responseModel'] as FormArray
+		return this.form.controls['responseModel'] as FormArray;
 	}
 	get responseModelFormGroups() {
-		return this.responseModel.controls as FormGroup[]
+		return this.responseModel.controls as FormGroup[];
 	}
-	public priorities = new Array(10).fill(0).map((x, i) => `Priority ${i + 1}`)
+	public priorities = new Array(10).fill(0).map((x, i) => `Priority ${i + 1}`);
 	/*
 	 **-------------------------------------------------------------------------------------
 	 ** METHOD NAME - contructor
@@ -30,9 +31,10 @@ export class FormPage implements OnInit {
 	 */
 	constructor(
 		private readonly fb: FormBuilder,
-		private el: ElementRef,
+		private readonly el: ElementRef,
 		private readonly ac: ActivatedRoute,
-		private readonly router: Router
+		private readonly router: Router,
+		private readonly dataService: DataService
 	) {}
 	/*
 	 **-------------------------------------------------------------------------------------
@@ -41,13 +43,14 @@ export class FormPage implements OnInit {
 	 */
 	ngOnInit() {
 		this.ac.paramMap.subscribe(map => {
-			const id = +map.get('id')
+			const id = +map.get('id');
 
 			if (id) {
-				this.data = BUYER_GROUPS.find(e => e.id === id)
+				this.data = this.buyerGroups.find(e => e.id === id);
+				this.isEdit = true;
 			}
-		})
-		this.createForm()
+		});
+		this.createForm();
 	}
 	/*
 	 **-------------------------------------------------------------------------------------
@@ -55,12 +58,12 @@ export class FormPage implements OnInit {
 	 **-------------------------------------------------------------------------------------
 	 */
 	public createForm(): void {
-		let result = new Array(Math.floor(Math.random() * 10))
-		result = result.fill(0).map(() => Math.floor(Math.random() * 10))
 		this.form = this.fb.group({
-			name: [this.data.name, [Validators.required]],
-			buyers: [result],
-		})
+			id: [this.data?.id || new Date().getTime()],
+			name: [this.data?.name, [Validators.required]],
+			buyers: [this.data?.buyers || []],
+		});
+		console.log(this.buyers);
 	}
 
 	/*
@@ -69,16 +72,33 @@ export class FormPage implements OnInit {
 	 **-------------------------------------------------------------------------------------
 	 */
 	onSave() {
-		console.log(this.form.value)
 		if (this.form.valid) {
+			const values = this.form.value;
+			if (this.isEdit) {
+				this.buyerGroups = this.buyerGroups.map(e => {
+					if (e.id === values.id) {
+						return {
+							...values,
+							id: new Date().getTime(),
+						};
+					}
+					return e;
+				});
+			} else {
+				this.buyerGroups.push({
+					...values,
+				});
+			}
+			this.dataService.set('buyerGroups', this.buyerGroups);
+			this.router.navigateByUrl('/secure/groups');
 		} else {
 			Object.values(this.form.controls).forEach(control => {
 				if (control.invalid) {
-					control.markAsDirty()
-					control.updateValueAndValidity({ onlySelf: true })
+					control.markAsDirty();
+					control.updateValueAndValidity({ onlySelf: true });
 				}
-			})
-			this.scrollToFirstInvalidControl()
+			});
+			this.scrollToFirstInvalidControl();
 		}
 	}
 
@@ -89,9 +109,9 @@ export class FormPage implements OnInit {
 	 */
 	private scrollToFirstInvalidControl() {
 		const firstInvalidControl: HTMLElement =
-			this.el.nativeElement.querySelector('form .ng-invalid')
+			this.el.nativeElement.querySelector('form .ng-invalid');
 
-		firstInvalidControl.focus() //without smooth behavior
+		firstInvalidControl.focus(); //without smooth behavior
 	}
 	/*
 	 **-------------------------------------------------------------------------------------
@@ -99,6 +119,6 @@ export class FormPage implements OnInit {
 	 **-------------------------------------------------------------------------------------
 	 */
 	public cancel() {
-		this.router.navigateByUrl('/secure/buyers')
+		this.router.navigateByUrl('/secure/groups');
 	}
 }

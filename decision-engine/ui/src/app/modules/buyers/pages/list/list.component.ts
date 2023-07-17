@@ -1,4 +1,4 @@
-import { BUYERS } from 'src/app/shared/database/buyers';
+import { DataService } from 'src/app/shared/services/data.service';
 
 import { Component, OnInit } from '@angular/core';
 
@@ -7,13 +7,13 @@ import { Component, OnInit } from '@angular/core';
 	templateUrl: './list.component.html',
 })
 export class ListPage implements OnInit {
-	public data = BUYERS
+	public data = this.dataService.get('buyers');
 	/*
 	 **-------------------------------------------------------------------------------------
 	 ** METHOD NAME - constructor
 	 **-------------------------------------------------------------------------------------
 	 */
-	constructor() {}
+	constructor(private readonly dataService: DataService) {}
 	/*
 	 **-------------------------------------------------------------------------------------
 	 ** METHOD NAME - ngOnInit

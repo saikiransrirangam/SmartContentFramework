@@ -14,10 +14,17 @@
     </span>
 </td>
 <td class="py-2 pl-2 text-right">
-    <div class="flex justify-end">
+    <div class="flex justify-end gap-x-5">
         <button (click)="navigate(dataRow.id)" class="flex items-center justify-center text-gray-400 bg-gray-200 rounded-md dark:bg-night-500 dark:text-night-300 h-7 w-7">
         <svg-icon
           src="assets/icons/outline/arrow-sm-right.svg"
+          [svgClass]="'h-5 w-5'"
+        >
+        </svg-icon>
+    </button>
+        <button class="flex items-center justify-center text-gray-400 bg-gray-200 rounded-md dark:bg-night-500 dark:text-night-300 h-7 w-7">
+        <svg-icon
+          src="assets/icons/outline/x.svg"
           [svgClass]="'h-5 w-5'"
         >
         </svg-icon>

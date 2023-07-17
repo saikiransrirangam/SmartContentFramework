@@ -10,18 +10,18 @@ import { MatDialog } from '@angular/material/dialog';
 	styleUrls: ['./end.component.scss'],
 })
 export class WorkflowEndComponent extends NgFlowchartStepComponent {
-	public validateForm!: UntypedFormGroup
+	public validateForm!: UntypedFormGroup;
 	public readonly routeData = {
-		name: 'HTTP_ACTION',
+		name: 'END_ACTION',
 		config: [{}],
-	}
-	public idx = 0
-	name: string
-	formData: any = {}
-	isDirty: boolean = false
-	action: string = ''
-	endpoint: string = ''
-	public actionsDisabled: boolean = true
+	};
+	public idx = 0;
+	name: string;
+	formData: any = {};
+	isDirty: boolean = false;
+	action: string = '';
+	endpoint: string = '';
+	public actionsDisabled: boolean = true;
 
 	/*
 	 **-------------------------------------------------------------------------------------
@@ -29,7 +29,7 @@ export class WorkflowEndComponent extends NgFlowchartStepComponent {
 	 **-------------------------------------------------------------------------------------
 	 */
 	constructor(private fb: UntypedFormBuilder, private matdialog: MatDialog) {
-		super()
+		super();
 	}
 	/*
 	 **-------------------------------------------------------------------------------------
@@ -38,8 +38,8 @@ export class WorkflowEndComponent extends NgFlowchartStepComponent {
 	 */
 	override ngOnInit(): void {
 		if (this.data?.createTime) {
-			this.isDirty = true
-			this.actionsDisabled = false
+			this.isDirty = true;
+			this.actionsDisabled = false;
 		}
 		//if(this.)
 	}
@@ -49,7 +49,7 @@ export class WorkflowEndComponent extends NgFlowchartStepComponent {
 	 **-------------------------------------------------------------------------------------
 	 */
 	onDelete() {
-		this.destroy(true)
+		this.destroy(true);
 	}
 	/*
 	 **-------------------------------------------------------------------------------------
@@ -57,6 +57,6 @@ export class WorkflowEndComponent extends NgFlowchartStepComponent {
 	 **-------------------------------------------------------------------------------------
 	 */
 	override getDropPositionsForStep(): NgFlowchart.DropPosition[] {
-		return ['RIGHT']
+		return ['RIGHT'];
 	}
 }

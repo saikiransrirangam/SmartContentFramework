@@ -1,32 +1,33 @@
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { BUYER_GROUPS } from 'src/app/shared/database/buyer-groups';
+import { DataService } from 'src/app/shared/services/data.service';
 
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-
-import { data } from '../../data';
 
 @Component({
 	selector: 'page-buyer-form',
 	templateUrl: './form.page.html',
 })
 export class FormPage implements OnInit {
-	public form: FormGroup
-	public data: any
+	public form: FormGroup;
+	public data: any;
+	public buyers: any[] = this.dataService.get('buyers');
+	public buyerGroups: any[] = this.dataService.get('buyerGroups');
+	public isEdit: boolean = false;
+
 	get f() {
-		return this.form.controls
+		return this.form.controls;
 	}
 	get responseModel() {
-		return this.form.controls['responseModel'] as FormArray
+		return this.form.controls['responseModel'] as FormArray;
 	}
 	get responseModelFormGroups() {
-		return this.responseModel.controls as FormGroup[]
+		return this.responseModel.controls as FormGroup[];
 	}
-	public buyers = BUYER_GROUPS
-	public isSpinning: boolean = false
-	isVisibleTop = true
-	isVisibleMiddle = false
+	public isSpinning: boolean = false;
+	isVisibleTop = true;
+	isVisibleMiddle = false;
 
 	/*
 	 **-------------------------------------------------------------------------------------
@@ -35,10 +36,11 @@ export class FormPage implements OnInit {
 	 */
 	constructor(
 		private readonly fb: FormBuilder,
-		private el: ElementRef,
+		private readonly el: ElementRef,
 		private readonly ac: ActivatedRoute,
 		private readonly router: Router,
-		private modal: NzModalService
+		private readonly modal: NzModalService,
+		private readonly dataService: DataService
 	) {}
 	/*
 	 **-------------------------------------------------------------------------------------
@@ -47,14 +49,13 @@ export class FormPage implements OnInit {
 	 */
 	ngOnInit() {
 		this.ac.paramMap.subscribe(map => {
-			const id = +map.get('id')
-
+			const id = +map.get('id');
 			if (id) {
-				this.data = data.find(e => e.id === id)
+				this.data = this.buyers.find(e => e.id === id);
+				this.isEdit = true;
 			}
-			console.log(this.data)
-		})
-		this.createForm()
+		});
+		this.createForm();
 	}
 	/*
 	 **-------------------------------------------------------------------------------------
@@ -62,12 +63,11 @@ export class FormPage implements OnInit {
 	 **-------------------------------------------------------------------------------------
 	 */
 	public createForm(): void {
-		let result = new Array(Math.floor(Math.random() * 10))
-		result = result.fill(0).map(() => `Buyer Group ${Math.floor(Math.random() * 10)}`)
 		this.form = this.fb.group({
+			id: [this.data?.id || new Date().getTime()],
 			name: [this.data?.name, [Validators.required]],
-			buyerGroup: [result],
-			contractPice: [`0.${Math.floor(Math.random() * 100)}`, [Validators.required]],
+			buyerGroups: [this.data?.buyerGroups],
+			contractPrice: [this.data?.contractPrice, [Validators.required]],
 			webhookUrl: [this.data?.webhookUrl, [Validators.required]],
 			webhookMethod: [this.data?.webhookMethod, [Validators.required]],
 			webhookTimeout: [this.data?.webhookTimeout, [Validators.required]],
@@ -77,13 +77,13 @@ export class FormPage implements OnInit {
 			httpAuthUsername: [this.data?.httpAuthUsername, []],
 			httpAuthPassword: [this.data?.httpAuthPassword, []],
 			responseModel: new FormArray([]),
-		})
+		});
 		if (this.data?.responseModel?.length) {
 			this.data.responseModel.forEach(e => {
-				this.add(e)
-			})
+				this.add(e);
+			});
 		} else {
-			this.add()
+			this.add();
 		}
 	}
 
@@ -94,14 +94,32 @@ export class FormPage implements OnInit {
 	 */
 	onSave() {
 		if (this.form.valid) {
+			const values = this.form.value;
+			if (this.isEdit) {
+				this.buyers = this.buyers.map(e => {
+					if (e.id === values.id) {
+						return {
+							...values,
+							id: new Date().getTime(),
+						};
+					}
+					return e;
+				});
+			} else {
+				this.buyers.push({
+					...values,
+				});
+			}
+			this.dataService.set('buyers', this.buyers);
+			this.router.navigateByUrl('/secure/buyers');
 		} else {
 			Object.values(this.form.controls).forEach(control => {
 				if (control.invalid) {
-					control.markAsDirty()
-					control.updateValueAndValidity({ onlySelf: true })
+					control.markAsDirty();
+					control.updateValueAndValidity({ onlySelf: true });
 				}
-			})
-			this.scrollToFirstInvalidControl()
+			});
+			this.scrollToFirstInvalidControl();
 		}
 	}
 	/*
@@ -115,7 +133,7 @@ export class FormPage implements OnInit {
 				dataType: [values.dataType, []],
 				propertyName: [values.propertyName, []],
 			})
-		)
+		);
 	}
 	/*
 	 **-------------------------------------------------------------------------------------
@@ -124,9 +142,9 @@ export class FormPage implements OnInit {
 	 */
 	private scrollToFirstInvalidControl() {
 		const firstInvalidControl: HTMLElement =
-			this.el.nativeElement.querySelector('form .ng-invalid')
+			this.el.nativeElement.querySelector('form .ng-invalid');
 
-		firstInvalidControl.focus() //without smooth behavior
+		firstInvalidControl.focus(); //without smooth behavior
 	}
 	/*
 	 **-------------------------------------------------------------------------------------
@@ -140,7 +158,7 @@ export class FormPage implements OnInit {
 	 **-------------------------------------------------------------------------------------
 	 */
 	public cancel() {
-		this.router.navigateByUrl('/secure/buyers')
+		this.router.navigateByUrl('/secure/buyers');
 	}
 	/*
 	 **-------------------------------------------------------------------------------------
@@ -148,15 +166,15 @@ export class FormPage implements OnInit {
 	 **-------------------------------------------------------------------------------------
 	 */
 	public testAPI() {
-		this.isSpinning = true
+		this.isSpinning = true;
 		setTimeout(() => {
-			this.isSpinning = false
+			this.isSpinning = false;
 			this.modal.error({
 				nzTitle: 'API Connection Failed',
 				nzContent:
 					'The API connection failed, please modify your configuration and try again',
 				nzOkText: 'OK',
-			})
-		}, 3000)
+			});
+		}, 3000);
 	}
 }
